@@ -1,0 +1,586 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */; };
+		FB43480D1EA78565008FA2E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43480C1EA78565008FA2E6 /* AppDelegate.swift */; };
+		FB43480F1EA78565008FA2E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43480E1EA78565008FA2E6 /* ViewController.swift */; };
+		FB4348121EA78565008FA2E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB4348101EA78565008FA2E6 /* Main.storyboard */; };
+		FB4348151EA78565008FA2E6 /* transmission_remote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB4348131EA78565008FA2E6 /* transmission_remote.xcdatamodeld */; };
+		FB4348171EA78565008FA2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB4348161EA78565008FA2E6 /* Assets.xcassets */; };
+		FB43481A1EA78565008FA2E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB4348181EA78565008FA2E6 /* LaunchScreen.storyboard */; };
+		FB4348251EA78565008FA2E6 /* transmission_remoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348241EA78565008FA2E6 /* transmission_remoteTests.swift */; };
+		FB4348301EA78565008FA2E6 /* transmission_remoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43482F1EA78565008FA2E6 /* transmission_remoteUITests.swift */; };
+		FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */; };
+		FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348421EA79F4E008FA2E6 /* TableViewController.swift */; };
+		FB4348451EA7A4CA008FA2E6 /* TransmissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB4348211EA78565008FA2E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB4348011EA78565008FA2E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB4348081EA78565008FA2E6;
+			remoteInfo = "transmission remote";
+		};
+		FB43482C1EA78565008FA2E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB4348011EA78565008FA2E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB4348081EA78565008FA2E6;
+			remoteInfo = "transmission remote";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		FB4348091EA78565008FA2E6 /* transmission remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "transmission remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB43480C1EA78565008FA2E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FB43480E1EA78565008FA2E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FB4348111EA78565008FA2E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FB4348141EA78565008FA2E6 /* transmission_remote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = transmission_remote.xcdatamodel; sourceTree = "<group>"; };
+		FB4348161EA78565008FA2E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FB4348191EA78565008FA2E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FB43481B1EA78565008FA2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB4348201EA78565008FA2E6 /* transmission remoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "transmission remoteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB4348241EA78565008FA2E6 /* transmission_remoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = transmission_remoteTests.swift; sourceTree = "<group>"; };
+		FB4348261EA78565008FA2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB43482B1EA78565008FA2E6 /* transmission remoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "transmission remoteUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB43482F1EA78565008FA2E6 /* transmission_remoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = transmission_remoteUITests.swift; sourceTree = "<group>"; };
+		FB4348311EA78565008FA2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB43483D1EA79123008FA2E6 /* transmission remote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "transmission remote.entitlements"; sourceTree = "<group>"; };
+		FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
+		FB4348421EA79F4E008FA2E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRequest.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FB4348061EA78565008FA2E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB43481D1EA78565008FA2E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB4348281EA78565008FA2E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FB4348001EA78565008FA2E6 = {
+			isa = PBXGroup;
+			children = (
+				FB43480B1EA78565008FA2E6 /* transmission remote */,
+				FB4348231EA78565008FA2E6 /* transmission remoteTests */,
+				FB43482E1EA78565008FA2E6 /* transmission remoteUITests */,
+				FB43480A1EA78565008FA2E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FB43480A1EA78565008FA2E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB4348091EA78565008FA2E6 /* transmission remote.app */,
+				FB4348201EA78565008FA2E6 /* transmission remoteTests.xctest */,
+				FB43482B1EA78565008FA2E6 /* transmission remoteUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FB43480B1EA78565008FA2E6 /* transmission remote */ = {
+			isa = PBXGroup;
+			children = (
+				FB43483D1EA79123008FA2E6 /* transmission remote.entitlements */,
+				FB43480C1EA78565008FA2E6 /* AppDelegate.swift */,
+				FB43480E1EA78565008FA2E6 /* ViewController.swift */,
+				FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */,
+				FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */,
+				FB4348421EA79F4E008FA2E6 /* TableViewController.swift */,
+				FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */,
+				FB4348101EA78565008FA2E6 /* Main.storyboard */,
+				FB4348161EA78565008FA2E6 /* Assets.xcassets */,
+				FB4348181EA78565008FA2E6 /* LaunchScreen.storyboard */,
+				FB43481B1EA78565008FA2E6 /* Info.plist */,
+				FB4348131EA78565008FA2E6 /* transmission_remote.xcdatamodeld */,
+			);
+			path = "transmission remote";
+			sourceTree = "<group>";
+		};
+		FB4348231EA78565008FA2E6 /* transmission remoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				FB4348241EA78565008FA2E6 /* transmission_remoteTests.swift */,
+				FB4348261EA78565008FA2E6 /* Info.plist */,
+			);
+			path = "transmission remoteTests";
+			sourceTree = "<group>";
+		};
+		FB43482E1EA78565008FA2E6 /* transmission remoteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FB43482F1EA78565008FA2E6 /* transmission_remoteUITests.swift */,
+				FB4348311EA78565008FA2E6 /* Info.plist */,
+			);
+			path = "transmission remoteUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FB4348081EA78565008FA2E6 /* transmission remote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB4348341EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remote" */;
+			buildPhases = (
+				FB4348051EA78565008FA2E6 /* Sources */,
+				FB4348061EA78565008FA2E6 /* Frameworks */,
+				FB4348071EA78565008FA2E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "transmission remote";
+			productName = "transmission remote";
+			productReference = FB4348091EA78565008FA2E6 /* transmission remote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FB43481F1EA78565008FA2E6 /* transmission remoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB4348371EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remoteTests" */;
+			buildPhases = (
+				FB43481C1EA78565008FA2E6 /* Sources */,
+				FB43481D1EA78565008FA2E6 /* Frameworks */,
+				FB43481E1EA78565008FA2E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB4348221EA78565008FA2E6 /* PBXTargetDependency */,
+			);
+			name = "transmission remoteTests";
+			productName = "transmission remoteTests";
+			productReference = FB4348201EA78565008FA2E6 /* transmission remoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FB43482A1EA78565008FA2E6 /* transmission remoteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB43483A1EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remoteUITests" */;
+			buildPhases = (
+				FB4348271EA78565008FA2E6 /* Sources */,
+				FB4348281EA78565008FA2E6 /* Frameworks */,
+				FB4348291EA78565008FA2E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB43482D1EA78565008FA2E6 /* PBXTargetDependency */,
+			);
+			name = "transmission remoteUITests";
+			productName = "transmission remoteUITests";
+			productReference = FB43482B1EA78565008FA2E6 /* transmission remoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FB4348011EA78565008FA2E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Mialin Valentin";
+				TargetAttributes = {
+					FB4348081EA78565008FA2E6 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = M6RU8K5R5C;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					FB43481F1EA78565008FA2E6 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = M6RU8K5R5C;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FB4348081EA78565008FA2E6;
+					};
+					FB43482A1EA78565008FA2E6 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = M6RU8K5R5C;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FB4348081EA78565008FA2E6;
+					};
+				};
+			};
+			buildConfigurationList = FB4348041EA78565008FA2E6 /* Build configuration list for PBXProject "transmission remote" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FB4348001EA78565008FA2E6;
+			productRefGroup = FB43480A1EA78565008FA2E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FB4348081EA78565008FA2E6 /* transmission remote */,
+				FB43481F1EA78565008FA2E6 /* transmission remoteTests */,
+				FB43482A1EA78565008FA2E6 /* transmission remoteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FB4348071EA78565008FA2E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB43481A1EA78565008FA2E6 /* LaunchScreen.storyboard in Resources */,
+				FB4348171EA78565008FA2E6 /* Assets.xcassets in Resources */,
+				FB4348121EA78565008FA2E6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB43481E1EA78565008FA2E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB4348291EA78565008FA2E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FB4348051EA78565008FA2E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB43480F1EA78565008FA2E6 /* ViewController.swift in Sources */,
+				FB43480D1EA78565008FA2E6 /* AppDelegate.swift in Sources */,
+				FB4348151EA78565008FA2E6 /* transmission_remote.xcdatamodeld in Sources */,
+				FB4348451EA7A4CA008FA2E6 /* TransmissionRequest.swift in Sources */,
+				FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */,
+				FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */,
+				FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB43481C1EA78565008FA2E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB4348251EA78565008FA2E6 /* transmission_remoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB4348271EA78565008FA2E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB4348301EA78565008FA2E6 /* transmission_remoteUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB4348221EA78565008FA2E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB4348081EA78565008FA2E6 /* transmission remote */;
+			targetProxy = FB4348211EA78565008FA2E6 /* PBXContainerItemProxy */;
+		};
+		FB43482D1EA78565008FA2E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB4348081EA78565008FA2E6 /* transmission remote */;
+			targetProxy = FB43482C1EA78565008FA2E6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FB4348101EA78565008FA2E6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB4348111EA78565008FA2E6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FB4348181EA78565008FA2E6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB4348191EA78565008FA2E6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FB4348321EA78565008FA2E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FB4348331EA78565008FA2E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FB4348351EA78565008FA2E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "transmission remote/transmission remote.entitlements";
+				DEVELOPMENT_TEAM = M6RU8K5R5C;
+				INFOPLIST_FILE = "transmission remote/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mialin.transmission-remote";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		FB4348361EA78565008FA2E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "transmission remote/transmission remote.entitlements";
+				DEVELOPMENT_TEAM = M6RU8K5R5C;
+				INFOPLIST_FILE = "transmission remote/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mialin.transmission-remote";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		FB4348381EA78565008FA2E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = M6RU8K5R5C;
+				INFOPLIST_FILE = "transmission remoteTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mialin.transmission-remoteTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/transmission remote.app/transmission remote";
+			};
+			name = Debug;
+		};
+		FB4348391EA78565008FA2E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = M6RU8K5R5C;
+				INFOPLIST_FILE = "transmission remoteTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mialin.transmission-remoteTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/transmission remote.app/transmission remote";
+			};
+			name = Release;
+		};
+		FB43483B1EA78565008FA2E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = M6RU8K5R5C;
+				INFOPLIST_FILE = "transmission remoteUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mialin.transmission-remoteUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "transmission remote";
+			};
+			name = Debug;
+		};
+		FB43483C1EA78565008FA2E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = M6RU8K5R5C;
+				INFOPLIST_FILE = "transmission remoteUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mialin.transmission-remoteUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "transmission remote";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FB4348041EA78565008FA2E6 /* Build configuration list for PBXProject "transmission remote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB4348321EA78565008FA2E6 /* Debug */,
+				FB4348331EA78565008FA2E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB4348341EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB4348351EA78565008FA2E6 /* Debug */,
+				FB4348361EA78565008FA2E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB4348371EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB4348381EA78565008FA2E6 /* Debug */,
+				FB4348391EA78565008FA2E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB43483A1EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remoteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB43483B1EA78565008FA2E6 /* Debug */,
+				FB43483C1EA78565008FA2E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FB4348131EA78565008FA2E6 /* transmission_remote.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FB4348141EA78565008FA2E6 /* transmission_remote.xcdatamodel */,
+			);
+			currentVersion = FB4348141EA78565008FA2E6 /* transmission_remote.xcdatamodel */;
+			path = transmission_remote.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FB4348011EA78565008FA2E6 /* Project object */;
+}
