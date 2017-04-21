@@ -14,16 +14,16 @@
         <scene sceneID="ag0-mw-y8u">
             <objects>
                 <tableViewController id="Lbo-8G-uwT" customClass="TableViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="28" sectionFooterHeight="28" id="qv2-rX-gAy">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" id="qv2-rX-gAy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Ict-gG-sKc" customClass="TableViewCell" customModule="transmission_remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="68"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="48" id="Ict-gG-sKc" customClass="TableViewCell" customModule="transmission_remote" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ict-gG-sKc" id="8mE-ii-lWb">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJK-wj-Lx5">
@@ -32,21 +32,32 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B97-8s-FQb">
+                                            <rect key="frame" x="8" y="29" width="359" height="10"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-oC-J63">
-                                            <rect key="frame" x="8" y="29" width="359" height="2"/>
+                                            <rect key="frame" x="8" y="40" width="359" height="2"/>
+                                            <color key="tintColor" red="0.0039215686274509803" green="0.41176470588235292" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </progressView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="EoE-oC-J63" firstAttribute="trailing" secondItem="8mE-ii-lWb" secondAttribute="trailingMargin" id="DJV-NI-F6n"/>
-                                        <constraint firstItem="LJK-wj-Lx5" firstAttribute="top" secondItem="8mE-ii-lWb" secondAttribute="topMargin" id="NLo-73-zTv"/>
-                                        <constraint firstItem="EoE-oC-J63" firstAttribute="top" secondItem="LJK-wj-Lx5" secondAttribute="bottom" constant="4" id="SWe-RI-wKA"/>
-                                        <constraint firstItem="LJK-wj-Lx5" firstAttribute="trailing" secondItem="8mE-ii-lWb" secondAttribute="trailingMargin" id="YU5-Na-Bcs"/>
-                                        <constraint firstItem="LJK-wj-Lx5" firstAttribute="leading" secondItem="8mE-ii-lWb" secondAttribute="leadingMargin" id="bCw-6y-ZA6"/>
-                                        <constraint firstItem="EoE-oC-J63" firstAttribute="leading" secondItem="8mE-ii-lWb" secondAttribute="leadingMargin" id="dGD-f6-h4X"/>
+                                        <constraint firstItem="B97-8s-FQb" firstAttribute="leading" secondItem="8mE-ii-lWb" secondAttribute="leadingMargin" id="QWI-B0-saK"/>
+                                        <constraint firstItem="B97-8s-FQb" firstAttribute="top" secondItem="LJK-wj-Lx5" secondAttribute="bottom" constant="4" id="ZuO-ke-FGC"/>
+                                        <constraint firstItem="LJK-wj-Lx5" firstAttribute="leading" secondItem="8mE-ii-lWb" secondAttribute="leadingMargin" id="cO0-6e-r48"/>
+                                        <constraint firstItem="B97-8s-FQb" firstAttribute="trailing" secondItem="8mE-ii-lWb" secondAttribute="trailingMargin" id="fOy-mD-Lz8"/>
+                                        <constraint firstAttribute="trailing" secondItem="EoE-oC-J63" secondAttribute="trailing" constant="8" id="lqP-ie-6mW"/>
+                                        <constraint firstItem="LJK-wj-Lx5" firstAttribute="trailing" secondItem="8mE-ii-lWb" secondAttribute="trailingMargin" id="nd2-zg-bjd"/>
+                                        <constraint firstItem="EoE-oC-J63" firstAttribute="top" secondItem="B97-8s-FQb" secondAttribute="bottom" constant="1" id="rNV-2N-s8v"/>
+                                        <constraint firstItem="EoE-oC-J63" firstAttribute="leading" secondItem="8mE-ii-lWb" secondAttribute="leading" constant="8" id="uJE-Aq-wfJ"/>
+                                        <constraint firstItem="LJK-wj-Lx5" firstAttribute="top" secondItem="8mE-ii-lWb" secondAttribute="topMargin" id="zJ6-nj-nUI"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="progressView" destination="EoE-oC-J63" id="G8a-Sl-ade"/>
+                                    <outlet property="status" destination="B97-8s-FQb" id="f5x-Fw-R8g"/>
                                     <outlet property="torrentName" destination="LJK-wj-Lx5" id="gcG-ey-ufF"/>
                                 </connections>
                             </tableViewCell>
@@ -70,7 +81,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JyP-Is-N9s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="314" y="59"/>
+            <point key="canvasLocation" x="312.80000000000001" y="58.920539730134934"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Gjg-l2-nsX">

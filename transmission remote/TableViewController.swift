@@ -8,37 +8,29 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController{
 
     let requst = TransmissionRequest()
-    var namesTorrent = [(String, Double)]()
+    var getTorrent = [(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)]()
     var timer:Timer?
+    
+    let statusCode:[Int:String] = [0: "STOPPED", 1: "CHECK_WAIT", 2: "CHECK", 3: "DOWNLOAD_WAIT ", 4: "DOWNLOAD", 5: "SEED_WAIT", 6: "SEED", 7: "ISOLATED"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        namesTorrent = requst.torrentGet()
+        // запускаем автоообновление
+        update()
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
+
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Идет обновление...")
         self.refreshControl?.addTarget(self, action: #selector(TableViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActiveNotification), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
         
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
-        }
-     
     }
     
     func applicationDidBecomeActiveNotification(notification : NSNotification) {
@@ -49,9 +41,10 @@ class TableViewController: UITableViewController {
     func applicationDidEnterBackground(notification : NSNotification) {
         //You may call your action method here, when the application did enter background.
         //ie., self.pauseTimer() in your case.
+        print("pause")
         if timer != nil {
             timer!.invalidate()
-            timer = nil
+          //  timer = nil
         }
         
     }
@@ -70,7 +63,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return namesTorrent.count
+        return getTorrent.count
     }
     
     
@@ -79,10 +72,25 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
 
-        let name = namesTorrent[indexPath.row]
+      //  getTorrent = getTorrent.sorted(by: { $0.id < $1.id })
         
-        cell.torrentName!.text = name.0
-        cell.progressView.setProgress(Float(name.1), animated: true)
+        let name = getTorrent[indexPath.row]
+
+        cell.torrentName!.text = name.name
+        cell.status!.text = statusCode[name.status]
+        cell.progressView.setProgress(name.percentDone, animated: true)
+        
+        switch name.status {
+        case 0:
+            cell.progressView.progressTintColor = UIColor.gray
+        case 4:
+            cell.progressView.progressTintColor = UIColor.green
+        case 5,6:
+            break
+        default:
+            cell.progressView.progressTintColor = UIColor.red
+        }
+        
         return cell
     }
     
@@ -91,7 +99,7 @@ class TableViewController: UITableViewController {
         // Fetch more objects from a web service, for example...
         
         // Simply adding an object to the data source for this example
-        namesTorrent = requst.torrentGet()
+        getTorrent = requst.torrentGet()
         
         
         self.tableView.reloadData()
@@ -101,11 +109,15 @@ class TableViewController: UITableViewController {
     func update() {
         //update your table data here
 
-        namesTorrent = requst.torrentGet()
         
-        DispatchQueue.main.async() {
+        getTorrent = requst.torrentGet()
+
+        if !self.tableView.isEditing {
+            print(self.tableView.isEditing)
+      //  DispatchQueue.main.async() {
             self.tableView.reloadData()
-        }
+       // }
+    }
     }
 
 
@@ -117,18 +129,53 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
+    /*
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+          //  tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
+ */
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+/*
+        print("pause")
+        if timer != nil {
+            timer!.invalidate()
+            //  timer = nil
+        }*/
+        //self.tableView.isEditing=true;
+        
+        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
+            print("more button tapped")
+        }
+        more.backgroundColor = .lightGray
+        
+        let favorite = UITableViewRowAction(style: .normal, title: "Favorite") { action, index in
+            print("favorite button tapped")
+        }
+        favorite.backgroundColor = .orange
+        
+        let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
+            print("share button tapped")
+        }
+        share.backgroundColor = .blue
+        
 
+    //    timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
+        return [share, favorite, more]
+        }
+
+    
+
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

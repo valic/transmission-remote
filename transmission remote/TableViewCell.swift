@@ -11,6 +11,7 @@ import UIKit
 class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var torrentName: UILabel!
+    @IBOutlet weak var status: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     
     override func awakeFromNib() {

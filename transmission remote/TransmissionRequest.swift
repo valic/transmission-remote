@@ -107,12 +107,12 @@ class TransmissionRequest{
     }
 
 
-    func torrentGet() -> [(String, Double)] {
+    func torrentGet() -> [(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)] {
         
-        var names = [(name:String, percentDone:Double)]()
+        var names = [(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)]()
         
         let jsonString: [String: Any] = [
-            "arguments": [ "fields" :  ["name", "percentDone"]],
+            "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "status"]],
             "method": "torrent-get"
         ]
         
@@ -121,22 +121,20 @@ class TransmissionRequest{
         
         if let json = try? JSONSerialization.jsonObject(with: requestResult!) as? [String:Any]{
            // print(json!)
-            let language = json?["arguments"] as? [String:Any]
-            let field = language?["torrents"] as? [[String:Any]]
+            let arguments = json?["arguments"] as? [String:Any]
+            let torrents = arguments?["torrents"] as? [[String:Any]]
             
             
-            for field in field! {
+            for torrents in torrents! {
                 
-                var nameStr = String()
-                var percentDoneStr = Double()
+                let id = torrents["id"] as? Int
+                let name = torrents["name"] as? String
+                let percentDone = torrents["percentDone"] as? Float
+                let eta = torrents["eta"] as? Int
+                let rateDownload = torrents["rateDownload"] as? Int
+                let status = torrents["status"] as? Int
                 
-                if let name = field["name"] as? String {
-                    nameStr = name
-                }
-                if let percentDone = field["percentDone"] as? Double {
-                    percentDoneStr = percentDone
-                }
-                names.append((nameStr, percentDoneStr))
+                names.append((id: id!, name: name!, percentDone: percentDone!, eta: eta!, rateDownload: rateDownload! , status: status!))
             }
             
            // names = field[0]["name"] as! String
