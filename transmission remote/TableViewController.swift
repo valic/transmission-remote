@@ -10,26 +10,52 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    let requst = TransmissionRequest()
     var namesTorrent = [(String, Double)]()
+    var timer:Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let requst = TransmissionRequest()
         namesTorrent = requst.torrentGet()
         
-       // var responseString = String(data: x!, encoding: .utf8)
-       //  print("responseString = \(String(describing: responseString))")
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Идет обновление...")
+        self.refreshControl?.addTarget(self, action: #selector(TableViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActiveNotification), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 
-        //print(x)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        if timer != nil {
+            timer!.invalidate()
+            timer = nil
+        }
+     
+    }
+    
+    func applicationDidBecomeActiveNotification(notification : NSNotification) {
+        print("unlock")
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
+    }
+    
+    func applicationDidEnterBackground(notification : NSNotification) {
+        //You may call your action method here, when the application did enter background.
+        //ie., self.pauseTimer() in your case.
+        if timer != nil {
+            timer!.invalidate()
+            timer = nil
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,6 +84,28 @@ class TableViewController: UITableViewController {
         cell.torrentName!.text = name.0
         cell.progressView.setProgress(Float(name.1), animated: true)
         return cell
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        // Simply adding an object to the data source for this example
+        namesTorrent = requst.torrentGet()
+        
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    func update() {
+        //update your table data here
+
+        namesTorrent = requst.torrentGet()
+        
+        DispatchQueue.main.async() {
+            self.tableView.reloadData()
+        }
     }
 
 

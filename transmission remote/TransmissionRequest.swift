@@ -120,7 +120,7 @@ class TransmissionRequest{
    //     print(requestResult!)
         
         if let json = try? JSONSerialization.jsonObject(with: requestResult!) as? [String:Any]{
-            print(json!)
+           // print(json!)
             let language = json?["arguments"] as? [String:Any]
             let field = language?["torrents"] as? [[String:Any]]
             
