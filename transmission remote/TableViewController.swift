@@ -10,7 +10,7 @@ import UIKit
 
 class TableViewController: UITableViewController{
 
-    let requst = TransmissionRequest()
+    let transmissionRequest = TransmissionRequest()
     var getTorrent = [(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)]()
     var timer:Timer?
     
@@ -86,7 +86,7 @@ class TableViewController: UITableViewController{
         case 4:
             cell.progressView.progressTintColor = UIColor.green
         case 5,6:
-            break
+            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.41, blue:0.85, alpha:1.0)
         default:
             cell.progressView.progressTintColor = UIColor.red
         }
@@ -95,28 +95,22 @@ class TableViewController: UITableViewController{
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
-        // Do some reloading of data and update the table view's data source
-        // Fetch more objects from a web service, for example...
+
+        update()
         
-        // Simply adding an object to the data source for this example
-        getTorrent = requst.torrentGet()
-        
-        
-        self.tableView.reloadData()
         refreshControl.endRefreshing()
     }
     
     func update() {
-        //update your table data here
-
-        
-        getTorrent = requst.torrentGet()
 
         if !self.tableView.isEditing {
-            print(self.tableView.isEditing)
-      //  DispatchQueue.main.async() {
-            self.tableView.reloadData()
-       // }
+            
+            getTorrent = transmissionRequest.torrentGet()
+
+        //update your table data here
+            DispatchQueue.main.async() {
+                self.tableView.reloadData()
+            }
     }
     }
 
@@ -145,32 +139,46 @@ class TableViewController: UITableViewController{
  */
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-/*
-        print("pause")
-        if timer != nil {
-            timer!.invalidate()
-            //  timer = nil
-        }*/
-        //self.tableView.isEditing=true;
+        
+      //  print(self.getTorrent[(editActionsForRowAt as NSIndexPath).row].status)
         
         let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
             print("more button tapped")
         }
         more.backgroundColor = .lightGray
         
-        let favorite = UITableViewRowAction(style: .normal, title: "Favorite") { action, index in
-            print("favorite button tapped")
-        }
-        favorite.backgroundColor = .orange
-        
-        let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
-            print("share button tapped")
-        }
-        share.backgroundColor = .blue
-        
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
 
-    //    timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
-        return [share, favorite, more]
+            self.transmissionRequest.deleteTorrent(id: self.getTorrent[(editActionsForRowAt as NSIndexPath).row].id)
+            self.tableView.isEditing=false
+            self.update()
+        }
+        delete.backgroundColor = .red
+        
+        var startStopTorrent: UITableViewRowAction
+        
+        switch getTorrent[(editActionsForRowAt as NSIndexPath).row].status {
+        case 0:
+            startStopTorrent = UITableViewRowAction(style: .normal, title: "Start") { action, index in
+                
+                self.transmissionRequest.startTorrent(id: self.getTorrent[(editActionsForRowAt as NSIndexPath).row].id)
+                self.tableView.isEditing=false
+                self.update()
+            }
+            startStopTorrent.backgroundColor = .green
+            
+        default:
+            startStopTorrent = UITableViewRowAction(style: .normal, title: "Stop") { action, index in
+
+                self.transmissionRequest.stopTorrent(id: self.getTorrent[(editActionsForRowAt as NSIndexPath).row].id)
+                self.tableView.isEditing=false
+                self.update()
+            }
+            startStopTorrent.backgroundColor = UIColor.orange
+        }
+
+
+        return [startStopTorrent, delete, more]
         }
 
     

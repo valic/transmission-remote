@@ -89,7 +89,7 @@ class TransmissionRequest{
         return (resultData!, resultResponse!)
 }
 
-    func testName(json: [String: Any]) -> Data? {
+    func requestStart(json: [String: Any]) -> Data? {
         
         var result = request(json: json, SessionId: self.transmissionSessionId)
         
@@ -116,7 +116,7 @@ class TransmissionRequest{
             "method": "torrent-get"
         ]
         
-       let requestResult = testName(json: jsonString)
+       let requestResult = requestStart(json: jsonString)
    //     print(requestResult!)
         
         if let json = try? JSONSerialization.jsonObject(with: requestResult!) as? [String:Any]{
@@ -144,5 +144,37 @@ class TransmissionRequest{
         return names
         
     }
+    
+    func stopTorrent(id: Int){
+        
+        let jsonString: [String: Any] = [
+            "arguments": [ "ids" :  [id]],
+            "method": "torrent-stop"
+        ]
+        
+        _ = requestStart(json: jsonString)
+    
+    }
+    
+    func startTorrent(id: Int){
+        
+        let jsonString: [String: Any] = [
+            "arguments": [ "ids" :  [id]],
+            "method": "torrent-start"
+        ]
+        
+        _ = requestStart(json: jsonString)
+    }
+    
+    func deleteTorrent(id: Int){
+        
+        let jsonString: [String: Any] = [
+            "arguments": [ "ids" :  [id]],
+            "method": "torrent-remove"
+        ]
+        
+        _ = requestStart(json: jsonString)
+    }
+    
 }
         
