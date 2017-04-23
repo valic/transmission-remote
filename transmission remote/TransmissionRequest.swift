@@ -8,11 +8,44 @@
 
 import Foundation
 
+class torrent {
+    
+    // id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)
+    
+    var id:Int
+    var name:String
+    var percentDone:Float
+    var eta:Int
+    var rateDownload:Int
+    var rateUpload:Int
+    var status:Int
+    var peersGettingFromUs:Int
+    var peersSendingToUs:Int
+    var peersConnected:Int
+    
+    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int) {
+        self.id = id
+        self.name = name
+        self.percentDone = percentDone
+        self.eta = eta
+        self.rateDownload = rateDownload
+        self.rateUpload = rateUpload
+        self.status = status
+        self.peersGettingFromUs = peersGettingFromUs
+        self.peersSendingToUs = peersSendingToUs
+        self.peersConnected = peersConnected
+        
+        
+        
+    }
+}
+
 class TransmissionRequest{
     
     var transmissionSessionId = ""
     var resultData:Data?
     var resultResponse:URLResponse?
+    
     
     func request(json: [String: Any], SessionId: String) -> (Data, URLResponse) {
         
@@ -53,30 +86,6 @@ class TransmissionRequest{
                 return
             }
             
-/*
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                if httpStatus.statusCode == 409 {
-                    
-                    if let sessionId = httpStatus.allHeaderFields["X-Transmission-Session-Id"] as? String {
-                        self.transmissionSessionId = sessionId
-
-                    
-                    }
-                
-                
-               print("statusCode should be 200, but is \(httpStatus.statusCode)")
-               print("response = \(String(describing: response))")
-
-                self.resultData = data2
-            
-            
-           let responseString = String(data: data2, encoding: .utf8)
-            print("responseString = \(String(describing: responseString))")
-            
-            
-
-        }
-            }*/
             self.resultResponse = response
             self.resultData = data2
             semaphore.signal()
@@ -87,7 +96,8 @@ class TransmissionRequest{
         _ = semaphore.wait(timeout: .distantFuture)
         
         return (resultData!, resultResponse!)
-}
+    }
+    
 
     func requestStart(json: [String: Any]) -> Data? {
         
@@ -99,28 +109,27 @@ class TransmissionRequest{
                     self.transmissionSessionId = sessionId
                     result = request(json: json, SessionId: self.transmissionSessionId)
                 }
+            }
             
         }
-
-    }
         return result.0
     }
-
-
-    func torrentGet() -> [(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)] {
+    
+    
+    func torrentGet() -> [torrent] {
         
-        var names = [(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)]()
+        var torrentArray = [torrent]()
         
         let jsonString: [String: Any] = [
-            "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "status"]],
+            "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "rateUpload", "queuePosition", "peersGettingFromUs", "peersSendingToUs",  "peersConnected", "status"]],
             "method": "torrent-get"
         ]
         
-       let requestResult = requestStart(json: jsonString)
-   //     print(requestResult!)
+        let requestResult = requestStart(json: jsonString)
+        //     print(requestResult!)
         
         if let json = try? JSONSerialization.jsonObject(with: requestResult!) as? [String:Any]{
-           // print(json!)
+            // print(json!)
             let arguments = json?["arguments"] as? [String:Any]
             let torrents = arguments?["torrents"] as? [[String:Any]]
             
@@ -132,16 +141,20 @@ class TransmissionRequest{
                 let percentDone = torrents["percentDone"] as? Float
                 let eta = torrents["eta"] as? Int
                 let rateDownload = torrents["rateDownload"] as? Int
+                let rateUpload = torrents["rateUpload"] as? Int
                 let status = torrents["status"] as? Int
                 
-                names.append((id: id!, name: name!, percentDone: percentDone!, eta: eta!, rateDownload: rateDownload! , status: status!))
+                let peersGettingFromUs = torrents["peersGettingFromUs"] as? Int
+                let peersSendingToUs = torrents["peersSendingToUs"] as? Int
+                let peersConnected = torrents["peersConnected"] as? Int
+                
+                
+                torrentArray.append(torrent(id: id!, name: name!, percentDone: percentDone!, eta: eta!, rateDownload: rateDownload!, rateUpload: rateUpload!, status: status!, peersGettingFromUs: peersGettingFromUs!, peersSendingToUs: peersSendingToUs!, peersConnected: peersConnected!))
+                
             }
-            
-           // names = field[0]["name"] as! String
-            // print(names) // ==> Test1
         }
         
-        return names
+        return torrentArray
         
     }
     
@@ -153,7 +166,7 @@ class TransmissionRequest{
         ]
         
         _ = requestStart(json: jsonString)
-    
+        
     }
     
     func startTorrent(id: Int){
@@ -177,4 +190,5 @@ class TransmissionRequest{
     }
     
 }
-        
+
+
