@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import SwiftyJSON
 
 class torrent {
@@ -43,12 +44,10 @@ class TransmissionRequest{
     var resultResponse:URLResponse?
     
     
-    func request(json: [String: Any], SessionId: String) -> (Data, URLResponse) {
-        
+    func requestAlamofire(json: [String: Any], completionHandler: @escaping (AnyObject?, NSError?) -> ()) {
         let userDefults = UserDefaults.standard
         var userName = ""
         var password = ""
-        
         
         // userName
         if let userName_userDefults = userDefults.value(forKey: "userName") as? String {
@@ -65,7 +64,6 @@ class TransmissionRequest{
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        // create the request
         let url = URL(string: "http://192.168.64.100:9091/transmission/rpc/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -73,46 +71,50 @@ class TransmissionRequest{
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         // insert json data to the request
         request.httpBody = jsonData
-        request.setValue(SessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
+        request.setValue(transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
         
-        let semaphore = DispatchSemaphore(value: 0)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data2 = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(String(describing: error))")
-                return
-            }
+        
+        
+        Alamofire.request(request).responseJSON { response in
             
-            self.resultResponse = response
-            self.resultData = data2
-            semaphore.signal()
-        }
-        
-        task.resume()
-        
-        _ = semaphore.wait(timeout: .distantFuture)
-        
-        return (resultData!, resultResponse!)
-    }
-    
-
-    func requestStart(json: [String: Any]) -> Data? {
-        
-        var result = request(json: json, SessionId: self.transmissionSessionId)
-        
-        if let httpStatus = result.1 as? HTTPURLResponse, httpStatus.statusCode != 200 {
-            if httpStatus.statusCode == 409 {
-                if let sessionId = httpStatus.allHeaderFields["X-Transmission-Session-Id"] as? String {
-                    self.transmissionSessionId = sessionId
-                    result = request(json: json, SessionId: self.transmissionSessionId)
+            switch response.result {
+            case .success(let value):
+                
+                completionHandler(value as AnyObject, nil)
+                
+            case .failure(let error):
+                
+                if response.response?.statusCode == 409 {
+                    if let SessionId = response.response?.allHeaderFields["X-Transmission-Session-Id"] as? String {
+                        
+                        self.transmissionSessionId = SessionId
+                        request.setValue(self.transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
+                        
+                        Alamofire.request(request).responseJSON { response in
+                            switch response.result {
+                            case .success(let value):
+                                
+                                completionHandler(value as AnyObject, nil)
+                                
+                            case .failure(let error):
+                                completionHandler(nil, error as NSError)
+                                print("Failure \(error)")
+                            }
+                        }
+                    }
                 }
+                else{
+                    completionHandler(nil, error as NSError)
+                    print("Failure \(error)")
+                }
+                
             }
-            
         }
-        return result.0
     }
     
     
-    func torrentGet() -> [torrent] {
+    
+    func torrentGet(completion: @escaping  ([torrent]) -> ()) {
         
         var torrentArray = [torrent]()
         
@@ -120,28 +122,27 @@ class TransmissionRequest{
             "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "rateUpload", "queuePosition", "peersGettingFromUs", "peersSendingToUs",  "peersConnected", "status"]],
             "method": "torrent-get"
         ]
-        
-        let requestResult = requestStart(json: jsonString)
-        
-        let clearJSON = JSON(data: requestResult!)
-        
-        if clearJSON["result"].stringValue == "success" {
-        for item in clearJSON["arguments"]["torrents"].arrayValue {
+
+        requestAlamofire(json: jsonString) { responseObject, error in
+            let json = JSON(responseObject!)
             
-            torrentArray.append(torrent(id: item["id"].intValue,
-                                        name: item["name"].stringValue,
-                                        percentDone: item["percentDone"].floatValue,
-                                        eta: item["eta"].intValue,
-                                        rateDownload: item["rateDownload"].intValue,
-                                        rateUpload: item["rateUpload"].intValue,
-                                        status: item["status"].intValue,
-                                        peersGettingFromUs: item["peersGettingFromUs"].intValue,
-                                        peersSendingToUs: item["peersSendingToUs"].intValue,
-                                        peersConnected: item["peersConnected"].intValue))
+            if json["result"].stringValue == "success" {
+                for item in json["arguments"]["torrents"].arrayValue {
+                    
+                    torrentArray.append(torrent(id: item["id"].intValue,
+                                                name: item["name"].stringValue,
+                                                percentDone: item["percentDone"].floatValue,
+                                                eta: item["eta"].intValue,
+                                                rateDownload: item["rateDownload"].intValue,
+                                                rateUpload: item["rateUpload"].intValue,
+                                                status: item["status"].intValue,
+                                                peersGettingFromUs: item["peersGettingFromUs"].intValue,
+                                                peersSendingToUs: item["peersSendingToUs"].intValue,
+                                                peersConnected: item["peersConnected"].intValue))
+                }
+            }
+            completion(torrentArray)
         }
-        }
-        return torrentArray
-        
     }
     
     func stopTorrent(id: Int){
@@ -151,7 +152,8 @@ class TransmissionRequest{
             "method": "torrent-stop"
         ]
         
-        _ = requestStart(json: jsonString)
+        requestAlamofire(json: jsonString) { responseObject, error in
+        }
         
     }
     
@@ -162,7 +164,8 @@ class TransmissionRequest{
             "method": "torrent-start"
         ]
         
-        _ = requestStart(json: jsonString)
+        requestAlamofire(json: jsonString) { responseObject, error in
+        }
     }
     
     func deleteTorrent(id: Int){
@@ -172,7 +175,8 @@ class TransmissionRequest{
             "method": "torrent-remove"
         ]
         
-        _ = requestStart(json: jsonString)
+        requestAlamofire(json: jsonString) { responseObject, error in
+        }
     }
     
 }

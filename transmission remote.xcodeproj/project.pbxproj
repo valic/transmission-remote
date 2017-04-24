@@ -21,6 +21,7 @@
 		FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */; };
 		FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348421EA79F4E008FA2E6 /* TableViewController.swift */; };
 		FB4348451EA7A4CA008FA2E6 /* TransmissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */; };
+		FB52DEEE1EAE29FD00905C67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB52DEED1EAE29FD00905C67 /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
 		FB4348421EA79F4E008FA2E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRequest.swift; sourceTree = "<group>"; };
+		FB52DEED1EAE29FD00905C67 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/transmission_remote-gckwlstmmksxwohamblyuiiakbzn/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB52DEEE1EAE29FD00905C67 /* Alamofire.framework in Frameworks */,
 				FB1C0B141EAE1C300046113D /* SwiftyJSON.framework in Frameworks */,
 				7CEE3D26C205D7A45BE6F8F3 /* Pods_transmission_remote.framework in Frameworks */,
 			);
@@ -96,6 +99,7 @@
 		DE8089C3F53AACB3206C940B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB52DEED1EAE29FD00905C67 /* Alamofire.framework */,
 				FB1C0B131EAE1C300046113D /* SwiftyJSON.framework */,
 				BB0879567FAF39148CA8BF34 /* Pods_transmission_remote.framework */,
 			);

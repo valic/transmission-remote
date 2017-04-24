@@ -110,12 +110,14 @@ class TableViewController: UITableViewController{
         
         if !self.tableView.isEditing {
             
-            getTorrent = transmissionRequest.torrentGet()
-            
-            //update your table data here
-            DispatchQueue.main.async() {
-                self.tableView.reloadData()
-            }
+            transmissionRequest.torrentGet(completion: { (x : [torrent]) in
+                self.getTorrent = x
+                
+                //update your table data here
+                DispatchQueue.main.async() {
+                    self.tableView.reloadData()
+                }
+            })
         }
     }
     
