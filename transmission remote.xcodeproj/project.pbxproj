@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7CEE3D26C205D7A45BE6F8F3 /* Pods_transmission_remote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0879567FAF39148CA8BF34 /* Pods_transmission_remote.framework */; };
+		FB1C0B141EAE1C300046113D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1C0B131EAE1C300046113D /* SwiftyJSON.framework */; };
 		FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */; };
 		FB43480D1EA78565008FA2E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43480C1EA78565008FA2E6 /* AppDelegate.swift */; };
 		FB43480F1EA78565008FA2E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43480E1EA78565008FA2E6 /* ViewController.swift */; };
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E11E0DBE853155436063EBB /* Pods-transmission remote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-transmission remote.release.xcconfig"; path = "Pods/Target Support Files/Pods-transmission remote/Pods-transmission remote.release.xcconfig"; sourceTree = "<group>"; };
+		BB0879567FAF39148CA8BF34 /* Pods_transmission_remote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_transmission_remote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D60BFAE4F5E58DB54026929E /* Pods-transmission remote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-transmission remote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-transmission remote/Pods-transmission remote.debug.xcconfig"; sourceTree = "<group>"; };
+		FB1C0B131EAE1C300046113D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/transmission_remote-gckwlstmmksxwohamblyuiiakbzn/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		FB4348091EA78565008FA2E6 /* transmission remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "transmission remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB43480C1EA78565008FA2E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB1C0B141EAE1C300046113D /* SwiftyJSON.framework in Frameworks */,
+				7CEE3D26C205D7A45BE6F8F3 /* Pods_transmission_remote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE8089C3F53AACB3206C940B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB1C0B131EAE1C300046113D /* SwiftyJSON.framework */,
+				BB0879567FAF39148CA8BF34 /* Pods_transmission_remote.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FB4348001EA78565008FA2E6 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +109,8 @@
 				FB4348231EA78565008FA2E6 /* transmission remoteTests */,
 				FB43482E1EA78565008FA2E6 /* transmission remoteUITests */,
 				FB43480A1EA78565008FA2E6 /* Products */,
+				FDF44FEF4B9ABE5F8983F76E /* Pods */,
+				DE8089C3F53AACB3206C940B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +161,15 @@
 			path = "transmission remoteUITests";
 			sourceTree = "<group>";
 		};
+		FDF44FEF4B9ABE5F8983F76E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D60BFAE4F5E58DB54026929E /* Pods-transmission remote.debug.xcconfig */,
+				9E11E0DBE853155436063EBB /* Pods-transmission remote.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,9 +177,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB4348341EA78565008FA2E6 /* Build configuration list for PBXNativeTarget "transmission remote" */;
 			buildPhases = (
+				1FE3916699E3C6B30081576F /* [CP] Check Pods Manifest.lock */,
 				FB4348051EA78565008FA2E6 /* Sources */,
 				FB4348061EA78565008FA2E6 /* Frameworks */,
 				FB4348071EA78565008FA2E6 /* Resources */,
+				F66FE5EDAC6171D6C87ADB54 /* [CP] Embed Pods Frameworks */,
+				5CBF7ADAFA2A73D66318CF73 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -278,6 +309,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1FE3916699E3C6B30081576F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5CBF7ADAFA2A73D66318CF73 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-transmission remote/Pods-transmission remote-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F66FE5EDAC6171D6C87ADB54 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-transmission remote/Pods-transmission remote-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FB4348051EA78565008FA2E6 /* Sources */ = {
@@ -442,6 +521,7 @@
 		};
 		FB4348351EA78565008FA2E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D60BFAE4F5E58DB54026929E /* Pods-transmission remote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "transmission remote/transmission remote.entitlements";
@@ -457,6 +537,7 @@
 		};
 		FB4348361EA78565008FA2E6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E11E0DBE853155436063EBB /* Pods-transmission remote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "transmission remote/transmission remote.entitlements";

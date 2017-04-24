@@ -1,0 +1,6 @@
+framework module Pods_transmission_remote {
+  umbrella header "Pods-transmission remote-umbrella.h"
+
+  export *
+  module * { export * }
+}

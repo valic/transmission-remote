@@ -7,10 +7,9 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class torrent {
-    
-    // id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, status:Int)
     
     var id:Int
     var name:String
@@ -34,9 +33,6 @@ class torrent {
         self.peersGettingFromUs = peersGettingFromUs
         self.peersSendingToUs = peersSendingToUs
         self.peersConnected = peersConnected
-        
-        
-        
     }
 }
 
@@ -126,34 +122,24 @@ class TransmissionRequest{
         ]
         
         let requestResult = requestStart(json: jsonString)
-        //     print(requestResult!)
         
-        if let json = try? JSONSerialization.jsonObject(with: requestResult!) as? [String:Any]{
-            // print(json!)
-            let arguments = json?["arguments"] as? [String:Any]
-            let torrents = arguments?["torrents"] as? [[String:Any]]
+        let clearJSON = JSON(data: requestResult!)
+        
+        if clearJSON["result"].stringValue == "success" {
+        for item in clearJSON["arguments"]["torrents"].arrayValue {
             
-            
-            for torrents in torrents! {
-                
-                let id = torrents["id"] as? Int
-                let name = torrents["name"] as? String
-                let percentDone = torrents["percentDone"] as? Float
-                let eta = torrents["eta"] as? Int
-                let rateDownload = torrents["rateDownload"] as? Int
-                let rateUpload = torrents["rateUpload"] as? Int
-                let status = torrents["status"] as? Int
-                
-                let peersGettingFromUs = torrents["peersGettingFromUs"] as? Int
-                let peersSendingToUs = torrents["peersSendingToUs"] as? Int
-                let peersConnected = torrents["peersConnected"] as? Int
-                
-                
-                torrentArray.append(torrent(id: id!, name: name!, percentDone: percentDone!, eta: eta!, rateDownload: rateDownload!, rateUpload: rateUpload!, status: status!, peersGettingFromUs: peersGettingFromUs!, peersSendingToUs: peersSendingToUs!, peersConnected: peersConnected!))
-                
-            }
+            torrentArray.append(torrent(id: item["id"].intValue,
+                                        name: item["name"].stringValue,
+                                        percentDone: item["percentDone"].floatValue,
+                                        eta: item["eta"].intValue,
+                                        rateDownload: item["rateDownload"].intValue,
+                                        rateUpload: item["rateUpload"].intValue,
+                                        status: item["status"].intValue,
+                                        peersGettingFromUs: item["peersGettingFromUs"].intValue,
+                                        peersSendingToUs: item["peersSendingToUs"].intValue,
+                                        peersConnected: item["peersConnected"].intValue))
         }
-        
+        }
         return torrentArray
         
     }
