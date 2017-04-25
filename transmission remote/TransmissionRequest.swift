@@ -22,8 +22,10 @@ class torrent {
     var peersGettingFromUs:Int
     var peersSendingToUs:Int
     var peersConnected:Int
+    var totalSize:Int
+    var sizeWhenDone:Int
     
-    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int) {
+    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int) {
         self.id = id
         self.name = name
         self.percentDone = percentDone
@@ -34,6 +36,8 @@ class torrent {
         self.peersGettingFromUs = peersGettingFromUs
         self.peersSendingToUs = peersSendingToUs
         self.peersConnected = peersConnected
+        self.totalSize = totalSize
+        self.sizeWhenDone = sizeWhenDone
     }
 }
 
@@ -42,7 +46,6 @@ class TransmissionRequest{
     var transmissionSessionId = ""
     var resultData:Data?
     var resultResponse:URLResponse?
-    
     
     func requestAlamofire(json: [String: Any], completionHandler: @escaping (AnyObject?, NSError?) -> ()) {
         let userDefults = UserDefaults.standard
@@ -111,15 +114,13 @@ class TransmissionRequest{
             }
         }
     }
-    
-    
-    
     func torrentGet(completion: @escaping  ([torrent]) -> ()) {
         
         var torrentArray = [torrent]()
         
         let jsonString: [String: Any] = [
-            "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "rateUpload", "queuePosition", "peersGettingFromUs", "peersSendingToUs",  "peersConnected", "status"]],
+            "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "rateUpload", "queuePosition", "peersGettingFromUs", "peersSendingToUs",  "peersConnected", "status",
+                                        "totalSize", "sizeWhenDone"]],
             "method": "torrent-get"
         ]
 
@@ -138,7 +139,9 @@ class TransmissionRequest{
                                                 status: item["status"].intValue,
                                                 peersGettingFromUs: item["peersGettingFromUs"].intValue,
                                                 peersSendingToUs: item["peersSendingToUs"].intValue,
-                                                peersConnected: item["peersConnected"].intValue))
+                                                peersConnected: item["peersConnected"].intValue,
+                                                totalSize: item["totalSize"].intValue,
+                                                sizeWhenDone: item["sizeWhenDone"].intValue))
                 }
             }
             completion(torrentArray)

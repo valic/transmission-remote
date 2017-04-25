@@ -84,14 +84,23 @@ class TableViewController: UITableViewController{
         switch torrent.status {
         case 0:
             cell.progressView.progressTintColor = UIColor.gray
+            
+            
+            if torrent.totalSize == torrent.sizeWhenDone {
+                cell.torrentProgress!.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone*100)%)"
+            }
+            else{
+                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone*100)%)"
+            }
+            
         case 4:
-            cell.status!.text = "Downloading from \(torrent.peersSendingToUs) of \(torrent.peersConnected) peers - ↓ \(formatBytes(byte: torrent.rateDownload)) ↑ \(formatBytes(byte: torrent.rateUpload))"
+            cell.status!.text = "Downloading from \(torrent.peersSendingToUs) of \(torrent.peersConnected) peers - ↓ \(formatBytesInSecond(byte: torrent.rateDownload)) ↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
             cell.progressView.progressTintColor = UIColor.green
         case 5:
-            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.41, blue:0.85, alpha:1.0)
+            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.47, blue:0.99, alpha:1.0)
         case 6:
-            cell.status!.text = "Seeding to \(torrent.peersGettingFromUs) of \(torrent.peersConnected) peers - ↑ \(formatBytes(byte: torrent.rateUpload))"
-            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.41, blue:0.85, alpha:1.0)
+            cell.status!.text = "Seeding to \(torrent.peersGettingFromUs) of \(torrent.peersConnected) peers - ↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
+            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.47, blue:0.99, alpha:1.0)
         default:
             cell.progressView.progressTintColor = UIColor.red
         }
@@ -128,8 +137,12 @@ class TableViewController: UITableViewController{
         formatter.countStyle = ByteCountFormatter.CountStyle.file
         formatter.allowsNonnumericFormatting = false
         
-        return (formatter.string(fromByteCount: Int64(byte)) + "/s")
+        return (formatter.string(fromByteCount: Int64(byte)) )
         
+    }
+    
+    func formatBytesInSecond(byte: Int) -> String {
+        return formatBytes(byte: byte)
     }
     
     

@@ -13,6 +13,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var torrentName: UILabel!
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var torrentProgress: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
