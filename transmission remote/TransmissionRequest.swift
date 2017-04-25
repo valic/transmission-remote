@@ -41,6 +41,54 @@ class torrent {
     }
 }
 
+class torrentFiles{
+
+    var id:Int
+    var name:String
+    var length:Int
+    
+    
+    init(id:Int, name:String, length:Int) {
+        self.id = id
+        self.name = name
+        self.length = length
+    }
+}
+
+class torrentFileStats{
+    var bytesCompleted:Int
+    var priority:Int
+    var wanted:Bool
+    
+    init( bytesCompleted:Int, priority:Int, wanted:Bool) {
+
+        self.bytesCompleted = bytesCompleted
+        self.priority = priority
+        self.wanted = wanted
+    }
+    
+}
+
+class torrentFilesAll {
+    
+    var id:Int
+    var name:String
+    var length:Int
+    var bytesCompleted:Int
+    var priority:Int
+    var wanted:Bool
+    
+    init(torrentFiles:torrentFiles, torrentFileStats:torrentFileStats) {
+        self.id = torrentFiles.id
+        self.name = torrentFiles.name
+        self.length = torrentFiles.length
+        self.bytesCompleted = torrentFileStats.bytesCompleted
+        self.priority = torrentFileStats.priority
+        self.wanted = torrentFileStats.wanted
+    }
+    
+}
+
 class TransmissionRequest{
     
     var transmissionSessionId = ""
@@ -145,6 +193,50 @@ class TransmissionRequest{
                 }
             }
             completion(torrentArray)
+        }
+    }
+    func torrentFilesGet(ids:Int, completion: @escaping  ([torrentFilesAll]) -> ()) {
+        
+        var torrentFilesAllArray = [torrentFilesAll]()
+        
+        let jsonString: [String: Any] = [
+            "arguments": [ "fields" :  ["id", "files", "fileStats"],
+                           "ids": [ ids ]],
+
+            "method": "torrent-get"
+        ]
+        
+        requestAlamofire(json: jsonString) { responseObject, error in
+            let json = JSON(responseObject!)
+            
+            var filesArray =  [torrentFiles]()
+            var fileStatsArray = [torrentFileStats]()
+            
+            if json["result"].stringValue == "success" {
+                for item in json["arguments"]["torrents"].arrayValue {
+                    
+                    for itemFiles in item["files"].arrayValue{
+                        
+                        filesArray.append(torrentFiles(id: itemFiles["id"].intValue,
+                                                       name: itemFiles["name"].stringValue,
+                                                       length: itemFiles["id"].intValue))
+                        
+                    }
+                    
+                    for itemfileStats in item["fileStats"].arrayValue{
+                        
+                        fileStatsArray.append(torrentFileStats(bytesCompleted: itemfileStats["bytesCompleted"].intValue,
+                                                               priority: itemfileStats["priority"].intValue,
+                                                               wanted: itemfileStats["wanted"].boolValue))
+                        
+                    }
+                    
+                    for i in  0..<filesArray.count  {
+                    torrentFilesAllArray.append(torrentFilesAll(torrentFiles: filesArray[i], torrentFileStats: fileStatsArray[i]))
+                    }
+                }
+            }
+            completion(torrentFilesAllArray)
         }
     }
     

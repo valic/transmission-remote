@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Torrents-->
         <scene sceneID="ag0-mw-y8u">
             <objects>
                 <tableViewController id="Lbo-8G-uwT" customClass="TableViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
@@ -68,6 +68,7 @@
                                     <outlet property="status" destination="B97-8s-FQb" id="f5x-Fw-R8g"/>
                                     <outlet property="torrentName" destination="LJK-wj-Lx5" id="gcG-ey-ufF"/>
                                     <outlet property="torrentProgress" destination="1dx-aC-Xqf" id="2Nx-ri-HZL"/>
+                                    <segue destination="uh2-kV-QVD" kind="show" id="bnm-hC-evi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -76,7 +77,7 @@
                             <outlet property="delegate" destination="Lbo-8G-uwT" id="hDf-Ua-2kq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="6vg-jK-WFV">
+                    <navigationItem key="navigationItem" title="Torrents" id="6vg-jK-WFV">
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="HZk-cu-a2Z">
                             <connections>
                                 <segue destination="dgP-tX-qBt" kind="show" id="lTU-si-7XJ"/>
@@ -92,6 +93,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JyP-Is-N9s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="312.80000000000001" y="58.920539730134934"/>
+        </scene>
+        <!--Files-->
+        <scene sceneID="osu-9o-Edh">
+            <objects>
+                <viewController id="uh2-kV-QVD" customClass="torrentFilesViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z3P-xe-S3f"/>
+                        <viewControllerLayoutGuide type="bottom" id="GQH-gE-Bbh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VL0-4P-G63">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nIa-3Y-BQ0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Mpb-Zn-egh">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="57"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mpb-Zn-egh" id="6E3-ls-PkX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="uh2-kV-QVD" id="WZE-lw-coD"/>
+                                    <outlet property="delegate" destination="uh2-kV-QVD" id="Tpl-GV-cH6"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GQH-gE-Bbh" firstAttribute="top" secondItem="nIa-3Y-BQ0" secondAttribute="bottom" id="8xo-1J-kkN"/>
+                            <constraint firstItem="nIa-3Y-BQ0" firstAttribute="leading" secondItem="VL0-4P-G63" secondAttribute="leading" id="Ydx-at-2wL"/>
+                            <constraint firstAttribute="trailing" secondItem="nIa-3Y-BQ0" secondAttribute="trailing" id="brw-l0-Z8c"/>
+                            <constraint firstItem="nIa-3Y-BQ0" firstAttribute="top" secondItem="VL0-4P-G63" secondAttribute="top" id="nGk-1n-f04"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Files" id="FSZ-Do-GOn"/>
+                    <connections>
+                        <outlet property="tableView" destination="nIa-3Y-BQ0" id="I7V-VK-csJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QOd-TG-E1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1072.8" y="761.46926536731644"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Gjg-l2-nsX">
@@ -173,7 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="/transmission/rpc" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KII-dT-RPX">
-                                <rect key="frame" x="144" y="379" width="215" height="30"/>
+                                <rect key="frame" x="193.5" y="379" width="134" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+
     @IBOutlet weak var remoteHost: UITextField!
     @IBOutlet weak var port: UITextField!
     @IBOutlet weak var userName: UITextField!
@@ -17,6 +18,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var RPCpath: UITextField!
     
     let userDefults = UserDefaults.standard
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,8 @@ class SettingsViewController: UIViewController {
         } else {
             RPCpath.text = "/transmission/rpc"
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,6 +67,9 @@ class SettingsViewController: UIViewController {
         userDefults.set(RPCpath.text, forKey: "RPCpath")
         
     }
+    
+
+    
         // Do any additional setup after loading the view.
     
 
