@@ -68,7 +68,6 @@
                                     <outlet property="status" destination="B97-8s-FQb" id="f5x-Fw-R8g"/>
                                     <outlet property="torrentName" destination="LJK-wj-Lx5" id="gcG-ey-ufF"/>
                                     <outlet property="torrentProgress" destination="1dx-aC-Xqf" id="2Nx-ri-HZL"/>
-                                    <segue destination="uh2-kV-QVD" kind="show" id="bnm-hC-evi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -89,59 +88,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <segue destination="b4f-jJ-CZW" kind="show" identifier="segueID" id="JVK-h0-yb6"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JyP-Is-N9s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="312.80000000000001" y="58.920539730134934"/>
-        </scene>
-        <!--Files-->
-        <scene sceneID="osu-9o-Edh">
-            <objects>
-                <viewController id="uh2-kV-QVD" customClass="torrentFilesViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="z3P-xe-S3f"/>
-                        <viewControllerLayoutGuide type="bottom" id="GQH-gE-Bbh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VL0-4P-G63">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nIa-3Y-BQ0">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Mpb-Zn-egh">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="57"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mpb-Zn-egh" id="6E3-ls-PkX">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <sections/>
-                                <connections>
-                                    <outlet property="dataSource" destination="uh2-kV-QVD" id="WZE-lw-coD"/>
-                                    <outlet property="delegate" destination="uh2-kV-QVD" id="Tpl-GV-cH6"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="GQH-gE-Bbh" firstAttribute="top" secondItem="nIa-3Y-BQ0" secondAttribute="bottom" id="8xo-1J-kkN"/>
-                            <constraint firstItem="nIa-3Y-BQ0" firstAttribute="leading" secondItem="VL0-4P-G63" secondAttribute="leading" id="Ydx-at-2wL"/>
-                            <constraint firstAttribute="trailing" secondItem="nIa-3Y-BQ0" secondAttribute="trailing" id="brw-l0-Z8c"/>
-                            <constraint firstItem="nIa-3Y-BQ0" firstAttribute="top" secondItem="VL0-4P-G63" secondAttribute="top" id="nGk-1n-f04"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Files" id="FSZ-Do-GOn"/>
-                    <connections>
-                        <outlet property="tableView" destination="nIa-3Y-BQ0" id="I7V-VK-csJ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QOd-TG-E1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1072.8" y="761.46926536731644"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Gjg-l2-nsX">
@@ -251,6 +204,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nMc-tK-MPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1072.8" y="58.920539730134934"/>
+        </scene>
+        <!--Files-->
+        <scene sceneID="TPw-zQ-MnJ">
+            <objects>
+                <tableViewController id="b4f-jJ-CZW" customClass="TreeViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="s1p-qg-BVi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="mR8-nX-kt9">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mR8-nX-kt9" id="EqS-BE-2Hj">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="b4f-jJ-CZW" id="F9d-13-Sbf"/>
+                            <outlet property="delegate" destination="b4f-jJ-CZW" id="BI6-XL-N7T"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Files" id="1xc-pr-j1o"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M9p-RX-i0B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1067" y="769"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6jD-3Q-TRZ">

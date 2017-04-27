@@ -14,6 +14,8 @@ class TableViewController: UITableViewController{
     var getTorrent = [torrent]()
     var timer:Timer?
     
+    var ids : Int = 0
+    
     let statusCode:[Int:String] = [0: "STOPPED", 1: "CHECK_WAIT", 2: "CHECK", 3: "DOWNLOAD_WAIT ", 4: "DOWNLOAD", 5: "SEED_WAIT", 6: "SEED", 7: "ISOLATED"]
     
     override func viewDidLoad() {
@@ -213,6 +215,28 @@ class TableViewController: UITableViewController{
     }
     
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let torrent = getTorrent[(indexPath as NSIndexPath).row]
+        
+        ids = torrent.id
+
+        
+        self.performSegue(withIdentifier: "segueID", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "segueID" {
+            if let destinationVC = segue.destination as? TreeViewController {
+                
+                destinationVC.ids = ids
+
+                
+            }
+        }
+    }
+ 
     
     
     /*
