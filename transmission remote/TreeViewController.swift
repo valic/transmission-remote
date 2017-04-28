@@ -99,12 +99,15 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
     func treeView(_ treeView: RATreeView, cellForItem item: Any?) -> UITableViewCell {
         let cell = treeView.dequeueReusableCell(withIdentifier: String(describing: TreeTableViewCell.self)) as! TreeTableViewCell
         let item = item as! DataObject
-        
+
+        let fileStatus = item.children.count != 0
+    
         
         let level = treeView.levelForCell(forItem: item)
         let detailsText = "Number of children \(item.children.count)"
         cell.selectionStyle = .none
-        cell.setup(withTitle: item.name, detailsText: detailsText, level: level, additionalButtonHidden: false)
+        cell.setup(withTitle: item.name, detailsText: detailsText, level: level, fileStatus: fileStatus )
+       
         cell.additionButtonActionBlock = { [weak treeView] cell in
             guard let treeView = treeView else {
                 return;
