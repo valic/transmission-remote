@@ -116,7 +116,19 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
             }
             let item = treeView.item(for: cell) as! DataObject
 
-            item.arrayID()
+           // print(item.arrayID())
+            
+            
+            treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
+        }
+        
+        cell.checkButtonActionBlock = { [weak treeView] cell in
+            guard let treeView = treeView else {
+                return;
+            }
+            let item = treeView.item(for: cell) as! DataObject
+            
+            print(item.arrayID())
             
             
             treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)

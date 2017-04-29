@@ -89,6 +89,9 @@
                             <constraint firstAttribute="height" constant="25" id="SDg-Qv-f6K"/>
                         </constraints>
                         <state key="normal" image="Unchecked Checkbox"/>
+                        <connections>
+                            <action selector="checkButton:" destination="Rsc-tc-zke" eventType="touchUpInside" id="Vgp-RK-s4c"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -110,13 +113,13 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="additionalButton" destination="5Fv-ZW-F0k" id="B4s-i4-Vi6"/>
-                <outlet property="checkButton" destination="P5w-85-gbt" id="h8E-mq-fUX"/>
+                <outlet property="checkButton" destination="P5w-85-gbt" id="hfs-VB-PB8"/>
                 <outlet property="customTitleLabel" destination="csr-Kq-yjj" id="hHJ-3s-jYA"/>
                 <outlet property="detailsLabel" destination="rMm-gk-ZJo" id="IhS-fV-gIv"/>
                 <outlet property="leadingImage" destination="FWJ-rW-q5R" id="AMj-4W-oFG"/>
                 <outlet property="typeFileImage" destination="Uq6-ag-o8P" id="2Cj-g2-Ys8"/>
             </connections>
-            <point key="canvasLocation" x="-1002" y="66"/>
+            <point key="canvasLocation" x="-1138" y="86"/>
         </tableViewCell>
     </objects>
     <resources>

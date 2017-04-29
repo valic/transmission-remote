@@ -36,6 +36,9 @@ class TreeTableViewCell : UITableViewCell {
     }
 
     var additionButtonActionBlock : ((TreeTableViewCell) -> Void)?;
+    var checkButtonActionBlock : ((TreeTableViewCell) -> Void)?;
+    
+    
     var torrent = torrentFilesAll()
 
     func setup(withTitle title: String, detailsText: String, level : Int, fileStatus: Bool, torrentFilesAll : torrentFilesAll) {
@@ -91,10 +94,16 @@ class TreeTableViewCell : UITableViewCell {
     func additionButtonTapped(_ sender : AnyObject) -> Void {
         if let action = additionButtonActionBlock {
             action(self)
-
+            
+        }
+    }
+    func checkButton(_ sender: Any) {
+        if let action = checkButtonActionBlock {
+            action(self)
         }
     }
     
+
     
 
 }
