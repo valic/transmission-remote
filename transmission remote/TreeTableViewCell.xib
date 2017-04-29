@@ -53,22 +53,22 @@
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Folder" translatesAutoresizingMaskIntoConstraints="NO" id="Uq6-ag-o8P">
-                        <rect key="frame" x="10" y="15" width="15" height="15"/>
+                        <rect key="frame" x="43" y="15" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="eBY-9S-N1r"/>
                             <constraint firstAttribute="height" constant="15" id="zYo-Vg-1xw"/>
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="cRw-9f-2xx">
-                        <rect key="frame" x="30" y="9" width="192" height="25.5"/>
+                        <rect key="frame" x="63" y="9" width="159" height="25.5"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csr-Kq-yjj">
-                                <rect key="frame" x="0.0" y="0.0" width="192" height="14.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="159" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example text here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="50" translatesAutoresizingMaskIntoConstraints="NO" id="rMm-gk-ZJo">
-                                <rect key="frame" x="0.0" y="14.5" width="192" height="11"/>
+                                <rect key="frame" x="0.0" y="14.5" width="159" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -82,15 +82,25 @@
                             <constraint firstAttribute="trailing" secondItem="csr-Kq-yjj" secondAttribute="trailing" id="WHL-yV-3QE"/>
                         </constraints>
                     </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5w-85-gbt" userLabel="Addition button">
+                        <rect key="frame" x="13" y="9.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="6Ck-kv-UIg"/>
+                            <constraint firstAttribute="height" constant="25" id="SDg-Qv-f6K"/>
+                        </constraints>
+                        <state key="normal" image="Unchecked Checkbox"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="5Fv-ZW-F0k" firstAttribute="centerY" secondItem="9qR-gl-T8Y" secondAttribute="centerY" id="0Rg-Am-sv3"/>
                     <constraint firstItem="cRw-9f-2xx" firstAttribute="centerY" secondItem="9qR-gl-T8Y" secondAttribute="centerY" id="0Tg-oS-NQr"/>
+                    <constraint firstItem="P5w-85-gbt" firstAttribute="centerY" secondItem="9qR-gl-T8Y" secondAttribute="centerY" id="AZj-z7-BFb"/>
+                    <constraint firstItem="P5w-85-gbt" firstAttribute="leading" secondItem="9qR-gl-T8Y" secondAttribute="leadingMargin" constant="5" id="FWJ-rW-q5R"/>
                     <constraint firstItem="5Fv-ZW-F0k" firstAttribute="trailing" secondItem="9qR-gl-T8Y" secondAttribute="trailingMargin" id="Hzy-mb-aj4"/>
-                    <constraint firstItem="Uq6-ag-o8P" firstAttribute="leading" secondItem="9qR-gl-T8Y" secondAttribute="leading" constant="10" id="Mlh-d7-Mvw"/>
                     <constraint firstItem="5Fv-ZW-F0k" firstAttribute="leading" secondItem="l1C-O5-pHb" secondAttribute="trailing" constant="6" id="NXT-oe-Rss"/>
                     <constraint firstItem="W02-n2-WvZ" firstAttribute="centerY" secondItem="9qR-gl-T8Y" secondAttribute="centerY" id="TB3-BG-xcz"/>
                     <constraint firstItem="Uq6-ag-o8P" firstAttribute="centerY" secondItem="9qR-gl-T8Y" secondAttribute="centerY" id="bfl-kJ-x23"/>
+                    <constraint firstItem="Uq6-ag-o8P" firstAttribute="leading" secondItem="P5w-85-gbt" secondAttribute="trailing" constant="5" id="bjf-2r-wY4"/>
                     <constraint firstItem="W02-n2-WvZ" firstAttribute="leading" secondItem="cRw-9f-2xx" secondAttribute="trailing" constant="6" id="cRL-f6-ePk"/>
                     <constraint firstItem="l1C-O5-pHb" firstAttribute="leading" secondItem="W02-n2-WvZ" secondAttribute="trailing" constant="6" id="onB-7t-Yoy"/>
                     <constraint firstItem="l1C-O5-pHb" firstAttribute="leading" secondItem="W02-n2-WvZ" secondAttribute="trailing" constant="6" id="rtt-LA-Icj"/>
@@ -100,12 +110,13 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="additionalButton" destination="5Fv-ZW-F0k" id="B4s-i4-Vi6"/>
+                <outlet property="checkButton" destination="P5w-85-gbt" id="h8E-mq-fUX"/>
                 <outlet property="customTitleLabel" destination="csr-Kq-yjj" id="hHJ-3s-jYA"/>
                 <outlet property="detailsLabel" destination="rMm-gk-ZJo" id="IhS-fV-gIv"/>
-                <outlet property="leadingImage" destination="Mlh-d7-Mvw" id="ywn-Qn-phP"/>
+                <outlet property="leadingImage" destination="FWJ-rW-q5R" id="AMj-4W-oFG"/>
                 <outlet property="typeFileImage" destination="Uq6-ag-o8P" id="2Cj-g2-Ys8"/>
             </connections>
-            <point key="canvasLocation" x="-916" y="71"/>
+            <point key="canvasLocation" x="-1002" y="66"/>
         </tableViewCell>
     </objects>
     <resources>
@@ -113,6 +124,7 @@
         <image name="High Priority" width="24" height="24"/>
         <image name="Low Priority" width="24" height="24"/>
         <image name="Medium Priority" width="24" height="24"/>
+        <image name="Unchecked Checkbox" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

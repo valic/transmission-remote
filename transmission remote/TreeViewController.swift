@@ -40,16 +40,14 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        data.append(DataObject(name: "ee"))
-        
-     //   print(ids)
+        data.append(DataObject(name: ""))
         
         
         view.backgroundColor = .white
         
-        //   title = "Things"
+
         setupTreeView()
-        updateNavigationBarButtons()
+      //  updateNavigationBarButtons()
         
         update()
         // timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TreeViewController.update), userInfo: nil, repeats: true)
@@ -101,28 +99,33 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
         let item = item as! DataObject
 
         let fileStatus = item.children.count != 0
+        
+     //   let xx = item.torrentFiles.id
+        
+      //  print(xx)
     
         
         let level = treeView.levelForCell(forItem: item)
         let detailsText = "Number of children \(item.children.count)"
         cell.selectionStyle = .none
-        cell.setup(withTitle: item.name, detailsText: detailsText, level: level, fileStatus: fileStatus )
+        cell.setup(withTitle: item.name, detailsText: detailsText, level: level, fileStatus: fileStatus, torrentFilesAll: item.torrentFiles)
        
         cell.additionButtonActionBlock = { [weak treeView] cell in
             guard let treeView = treeView else {
                 return;
             }
             let item = treeView.item(for: cell) as! DataObject
-            let newItem = DataObject(name: "Added value")
-            item.addChild(newItem)
-            treeView.insertItems(at: IndexSet(integer: item.children.count-1), inParent: item, with: RATreeViewRowAnimationNone);
+
+            item.arrayID()
+            
+            
             treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
         }
         return cell
     }
     
     //MARK: RATreeView delegate
-    
+    /*
     func treeView(_ treeView: RATreeView, commit editingStyle: UITableViewCellEditingStyle, forRowForItem item: Any) {
         guard editingStyle == .delete else { return; }
         let item = item as! DataObject
@@ -146,37 +149,34 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
         if let parent = parent {
             self.treeView.reloadRows(forItems: [parent], with: RATreeViewRowAnimationNone)
         }
-    }
+    }*/
+    
+
     
     func update() {
         
         if !self.treeView.isEditing {
             
+     
             TransmissionRequest().torrentFilesGet(ids: ids, completion: { (files : [torrentFilesAll]) in
                 
                 var data = [DataObject]()
+
+                
                 for item in 0..<files.count {
                     
                     data.append(DataObject(name: files[item].name))
                     
-                    
-                    
                 }
-                self.data = data
-                
-                /*
-                 for i in data {
-                 print(i.search(value: "04.Fall.mkv")?.name )
-                 }
-                 */
-                
                 
                 var array = [[String]]()
                 var maxCout = 0
                 
                 for item in 0..<files.count {
                     
-                    let theFileName = (self.data[item].name as NSString).pathComponents
+                    let theFileName = (data[item].name as NSString).pathComponents
+                    
+                    print(theFileName)
                     
                     if maxCout < theFileName.count{
                         maxCout = theFileName.count
@@ -184,47 +184,47 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
                     array.append(theFileName)
                 }
                 
-                var test = [DataObject]()
+                var tempDataObject = [DataObject]()
                 
-                //      var tempArray = [DataObject]()
                 
                 
                 for i in 0..<maxCout  {
                     
+                    var number = 0
                     for item in array{
+                        
                         
                         if i < item.count{
                             
-                            if test.isEmpty {
-                                test.append(DataObject(name:  item[0]))
+                            if tempDataObject.isEmpty {
+                                tempDataObject.append(DataObject.init(name: item[i], torrentFiles: files[number]))
                             }
                             else{
                                 
-                                for x in test {
+                                for x in tempDataObject {
                                     
                                     if i >= 1 {
-                                        if let ee = x.search(value: item[i-1]) {
+                                        if let resultSearchDataObject = x.search(value: item[i-1]) {
                                             
-                                            if x.search(value: item[i]) == nil {
-                                                ee.addChild(DataObject(name:  item[i]))
+                                            if resultSearchDataObject.search(value: item[i])?.children == nil {
+                                                
+                                                resultSearchDataObject.addChild(DataObject.init(name: item[i], torrentFiles: files[number]))
                                             }
-                                            
-                                            
                                         }
                                         else{
-                                            if test.first(where: { $0.name == item[i-1] }) == nil {
-                                                test.append(DataObject(name:  item[i]))
+                                            if tempDataObject.first(where: { $0.name == item[i-1] }) == nil {
+                                                tempDataObject.append(DataObject(name:  item[i]))
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-                        
+                        number += 1
                     }
                 }
                 
-                self.data = test
+                self.data = tempDataObject
                 
                 //update your table data here
                 DispatchQueue.main.async() {

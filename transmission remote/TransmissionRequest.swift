@@ -53,6 +53,10 @@ class torrentFiles{
         self.name = name
         self.length = length
     }
+    
+    convenience init() {
+        self.init(id:Int(), name:String(), length:Int())
+    }
 }
 
 class torrentFileStats{
@@ -65,6 +69,10 @@ class torrentFileStats{
         self.bytesCompleted = bytesCompleted
         self.priority = priority
         self.wanted = wanted
+        
+    }
+    convenience init() {
+        self.init(bytesCompleted:Int(), priority:Int(), wanted:Bool())
     }
     
 }
@@ -85,6 +93,10 @@ class torrentFilesAll {
         self.bytesCompleted = torrentFileStats.bytesCompleted
         self.priority = torrentFileStats.priority
         self.wanted = torrentFileStats.wanted
+    }
+   
+    convenience init() {
+        self.init(torrentFiles:torrentFiles(), torrentFileStats:torrentFileStats())
     }
     
 }
@@ -215,9 +227,9 @@ class TransmissionRequest{
             if json["result"].stringValue == "success" {
                 for item in json["arguments"]["torrents"].arrayValue {
                     
-                    for itemFiles in item["files"].arrayValue{
+                    for (index, itemFiles) in item["files"].arrayValue.enumerated(){
                         
-                        filesArray.append(torrentFiles(id: itemFiles["id"].intValue,
+                        filesArray.append(torrentFiles(id: index,
                                                        name: itemFiles["name"].stringValue,
                                                        length: itemFiles["id"].intValue))
                         

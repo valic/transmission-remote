@@ -12,15 +12,21 @@ import Foundation
 class DataObject
 {
     let name : String
+    let torrentFiles : torrentFilesAll
     var children : [DataObject]
 
-    init(name : String, children: [DataObject]) {
+    init(name : String, children: [DataObject], torrentFiles : torrentFilesAll) {
         self.name = name
         self.children = children
+        self.torrentFiles = torrentFiles
     }
  
     convenience init(name : String) {
-        self.init(name: name, children: [DataObject]())
+        self.init(name: name, children: [DataObject](), torrentFiles: torrentFilesAll())
+    }
+    
+    convenience init(name : String, torrentFiles: torrentFilesAll) {
+        self.init(name: name, children: [DataObject](), torrentFiles: torrentFiles)
     }
 
     func addChild(_ child : DataObject) {
@@ -50,6 +56,22 @@ extension DataObject {
         }
         // 4
         return nil
+    }
+    
+    func arrayID() -> [Int] {
+        var ID = [Int]()
+        
+      //  ID.append(torrentFiles.id)
+        
+        for child in children {
+            
+            
+            ID.append(child.torrentFiles.id)
+            
+            print(child.torrentFiles.name)
+            }
+        print(ID)
+        return ID
     }
 }
 

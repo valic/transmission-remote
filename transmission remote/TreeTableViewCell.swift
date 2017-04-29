@@ -15,6 +15,9 @@ class TreeTableViewCell : UITableViewCell {
     @IBOutlet private weak var customTitleLabel: UILabel!
     @IBOutlet weak var leadingImage: NSLayoutConstraint!
     @IBOutlet weak var typeFileImage: UIImageView!
+    @IBOutlet weak var checkButton: UIButton!
+    
+    
 
 
 
@@ -33,17 +36,30 @@ class TreeTableViewCell : UITableViewCell {
     }
 
     var additionButtonActionBlock : ((TreeTableViewCell) -> Void)?;
+    var torrent = torrentFilesAll()
 
-    func setup(withTitle title: String, detailsText: String, level : Int, fileStatus: Bool) {
+    func setup(withTitle title: String, detailsText: String, level : Int, fileStatus: Bool, torrentFilesAll : torrentFilesAll) {
         customTitleLabel.text = title
         detailsLabel.text = detailsText
         
+        torrent = torrentFilesAll
+  
+        
+        if torrentFilesAll.wanted {
+            checkButton.setImage(UIImage(named: "Checked Checkbox"), for: UIControlState.normal)
+        }
+        else{
+            checkButton.setImage(UIImage(named: "Unchecked Checkbox"), for: UIControlState.normal)
+        }
+        
         if fileStatus {
-            typeFileImage.image = #imageLiteral(resourceName: "Folder")
+                typeFileImage.image = #imageLiteral(resourceName: "Folder")
         }
         else{
             typeFileImage.image = #imageLiteral(resourceName: "File")
         }
+        
+
 
         let backgroundColor: UIColor
         if level == 0 {
@@ -75,7 +91,7 @@ class TreeTableViewCell : UITableViewCell {
     func additionButtonTapped(_ sender : AnyObject) -> Void {
         if let action = additionButtonActionBlock {
             action(self)
-            print("add")
+
         }
     }
     
