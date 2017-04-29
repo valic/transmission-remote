@@ -41,19 +41,25 @@ class TreeTableViewCell : UITableViewCell {
     
     var torrent = torrentFilesAll()
 
-    func setup(withTitle title: String, detailsText: String, level : Int, fileStatus: Bool, torrentFilesAll : torrentFilesAll) {
+    func setup(withTitle title: String, detailsText: String, level : Int, fileStatus: Bool, torrentFilesAll : torrentFilesAll, checkBoxStatus : Int) {
         customTitleLabel.text = title
         detailsLabel.text = detailsText
         
         torrent = torrentFilesAll
   
-        
-        if torrentFilesAll.wanted {
+        switch checkBoxStatus {
+        case 2:
             checkButton.setImage(UIImage(named: "Checked Checkbox"), for: UIControlState.normal)
-        }
-        else{
+        case 1:
+            
+            checkButton.setImage(UIImage(named: "Indeterminate Checkbox"), for: UIControlState.normal)
+        case 0:
+            checkButton.setImage(UIImage(named: "Unchecked Checkbox"), for: UIControlState.normal)
+        default:
             checkButton.setImage(UIImage(named: "Unchecked Checkbox"), for: UIControlState.normal)
         }
+        
+
         
         if fileStatus {
                 typeFileImage.image = #imageLiteral(resourceName: "Folder")

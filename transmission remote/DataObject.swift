@@ -58,7 +58,7 @@ extension DataObject {
         return nil
     }
     
-    func arrayID() -> [Int]? {
+    func idFiles() -> [Int]? {
         var ID = [Int]()
         
         if children.count != 0{
@@ -69,7 +69,7 @@ extension DataObject {
                     ID.append(child.torrentFiles.id)
                 }else {
                     
-                    if let found = child.arrayID() {
+                    if let found = child.idFiles() {
                         ID += found
                     }
                 }
@@ -80,5 +80,53 @@ extension DataObject {
         }
         return ID
     }
+    
+    func filesWanted() -> [Bool]? {
+        
+        var wanted = [Bool]()
+        
+        if children.count != 0{
+            
+            for child in children {
+                
+                if child.children.count == 0{
+                    wanted.append(child.torrentFiles.wanted)
+                    
+                }else {
+                    
+                    if let found = child.filesWanted() {
+                        wanted += found
+                    }
+                }
+            }
+        }else {
+            wanted.append(torrentFiles.wanted)
+        }
+        return wanted
+    }
+    
+    func checkStatus() -> Int {
+        
+        let array = filesWanted()!
+        let resultsFalse = array.filter({ $0 == false }).count
+        
+        if resultsFalse == 0 {
+            return 2
+        }
+        else{
+            if resultsFalse != array.count {
+                return 1
+            }
+            else {
+                return 0
+            }
+        }
+        
+        
+        
+        
+        
+    }
+    
 }
 

@@ -79,6 +79,7 @@ class torrentFileStats{
 
 class torrentFilesAll {
     
+    var idTorrent:Int
     var id:Int
     var name:String
     var length:Int
@@ -86,7 +87,8 @@ class torrentFilesAll {
     var priority:Int
     var wanted:Bool
     
-    init(torrentFiles:torrentFiles, torrentFileStats:torrentFileStats) {
+    init(idTorrent:Int, torrentFiles:torrentFiles, torrentFileStats:torrentFileStats) {
+        self.idTorrent = idTorrent
         self.id = torrentFiles.id
         self.name = torrentFiles.name
         self.length = torrentFiles.length
@@ -96,7 +98,7 @@ class torrentFilesAll {
     }
    
     convenience init() {
-        self.init(torrentFiles:torrentFiles(), torrentFileStats:torrentFileStats())
+        self.init(idTorrent:Int(), torrentFiles:torrentFiles(), torrentFileStats:torrentFileStats())
     }
     
 }
@@ -244,7 +246,7 @@ class TransmissionRequest{
                     }
                     
                     for i in  0..<filesArray.count  {
-                    torrentFilesAllArray.append(torrentFilesAll(torrentFiles: filesArray[i], torrentFileStats: fileStatsArray[i]))
+                    torrentFilesAllArray.append(torrentFilesAll(idTorrent: ids, torrentFiles: filesArray[i], torrentFileStats: fileStatsArray[i]))
                     }
                 }
             }
@@ -284,6 +286,19 @@ class TransmissionRequest{
         
         requestAlamofire(json: jsonString) { responseObject, error in
         }
+    }
+    func filesUnwanted(id: Int, filesArray: [Int], completion: @escaping  (Bool) -> ()) {
+        let jsonString: [String: Any] = [
+            "arguments": [ "ids" :  [id],
+                            "files-unwanted" : filesArray],
+            "method": "torrent-set"
+        ]
+        requestAlamofire(json: jsonString) { responseObject, error in
+            
+            let json = JSON(responseObject!)
+            
+            completion((json["result"].stringValue == "success"))
+    }
     }
     
 }

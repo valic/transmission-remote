@@ -99,16 +99,15 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
         let item = item as! DataObject
 
         let fileStatus = item.children.count != 0
-        
-     //   let xx = item.torrentFiles.id
-        
-      //  print(xx)
-    
+
         
         let level = treeView.levelForCell(forItem: item)
         let detailsText = "Number of children \(item.children.count)"
+
+        self.treeView.expandRow(forItem: item.name)
+        
         cell.selectionStyle = .none
-        cell.setup(withTitle: item.name, detailsText: detailsText, level: level, fileStatus: fileStatus, torrentFilesAll: item.torrentFiles)
+        cell.setup(withTitle: item.name, detailsText: detailsText, level: level, fileStatus: fileStatus, torrentFilesAll: item.torrentFiles, checkBoxStatus: item.checkStatus())
        
         cell.additionButtonActionBlock = { [weak treeView] cell in
             guard let treeView = treeView else {
@@ -116,9 +115,6 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
             }
             let item = treeView.item(for: cell) as! DataObject
 
-           // print(item.arrayID())
-            
-            
             treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
         }
         
@@ -128,11 +124,17 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
             }
             let item = treeView.item(for: cell) as! DataObject
             
-            print(item.arrayID())
+           // print(item.ckeckStatus())
             
+            TransmissionRequest().filesUnwanted(id: item.torrentFiles.idTorrent, filesArray: item.idFiles()!, completion: { (check : Bool) in
+
+              //  self.update()
+          //      treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
             
-            treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
+
+            })
         }
+        
         return cell
     }
     
@@ -188,7 +190,7 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
                     
                     let theFileName = (data[item].name as NSString).pathComponents
                     
-                    print(theFileName)
+               //     print(theFileName)
                     
                     if maxCout < theFileName.count{
                         maxCout = theFileName.count
@@ -239,9 +241,10 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
                 self.data = tempDataObject
                 
                 //update your table data here
-                DispatchQueue.main.async() {
+               // DispatchQueue.main.async() {
                     self.treeView.reloadData()
-                }
+
+                //}
             })
         }
     }
