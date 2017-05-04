@@ -219,7 +219,13 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Files" id="1xc-pr-j1o"/>
+                    <navigationItem key="navigationItem" title="Files" id="1xc-pr-j1o">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="P8Y-PZ-r8J">
+                            <connections>
+                                <action selector="updateButton:" destination="b4f-jJ-CZW" id="O5T-2U-NjF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9p-RX-i0B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -229,7 +235,7 @@
         <scene sceneID="6jD-3Q-TRZ">
             <objects>
                 <navigationController id="Jzo-ca-kOk" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tYC-4a-E34">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tYC-4a-E34">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

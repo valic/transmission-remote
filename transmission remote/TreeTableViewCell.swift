@@ -10,7 +10,6 @@ import UIKit
 
 class TreeTableViewCell : UITableViewCell {
 
-    @IBOutlet private weak var additionalButton: UIButton!
     @IBOutlet private weak var detailsLabel: UILabel!
     @IBOutlet private weak var customTitleLabel: UILabel!
     @IBOutlet weak var leadingImage: NSLayoutConstraint!
@@ -20,15 +19,6 @@ class TreeTableViewCell : UITableViewCell {
     
 
 
-
-    private var additionalButtonHidden : Bool {
-        get {
-            return additionalButton.isHidden;
-        }
-        set {
-            additionalButton.isHidden = newValue;
-        }
-    }
 
     override func awakeFromNib() {
         selectedBackgroundView? = UIView()
@@ -69,7 +59,7 @@ class TreeTableViewCell : UITableViewCell {
         }
         
 
-
+/*
         let backgroundColor: UIColor
         if level == 0 {
             backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
@@ -82,7 +72,7 @@ class TreeTableViewCell : UITableViewCell {
         
         self.backgroundColor = backgroundColor
         self.contentView.backgroundColor = backgroundColor
-
+*/
       //  let left = 11.0 + 20.0 * CGFloat(level)
         //self.customTitleLabel.frame.origin.x = left
         
@@ -97,12 +87,6 @@ class TreeTableViewCell : UITableViewCell {
         
     }
 
-    func additionButtonTapped(_ sender : AnyObject) -> Void {
-        if let action = additionButtonActionBlock {
-            action(self)
-            
-        }
-    }
     func checkButton(_ sender: Any) {
         if let action = checkButtonActionBlock {
             action(self)

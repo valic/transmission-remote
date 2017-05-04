@@ -40,7 +40,9 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        data.append(DataObject(name: ""))
+
+        
+       // data.append(DataObject(name: ""))
         
         
         view.backgroundColor = .white
@@ -50,6 +52,7 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
       //  updateNavigationBarButtons()
         
         update()
+
         // timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TreeViewController.update), userInfo: nil, repeats: true)
     }
     
@@ -61,6 +64,7 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
         treeView.dataSource = self;
         treeView.treeFooterView = UIView()
         treeView.backgroundColor = .clear
+        treeView.expandsChildRowsWhenRowExpands = true
         view.addSubview(treeView)
     }
     
@@ -99,40 +103,40 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
         let item = item as! DataObject
 
         let fileStatus = item.children.count != 0
-
         
         let level = treeView.levelForCell(forItem: item)
         let detailsText = "Number of children \(item.children.count)"
 
-        self.treeView.expandRow(forItem: item.name)
-        
         cell.selectionStyle = .none
         cell.setup(withTitle: item.name, detailsText: detailsText, level: level, fileStatus: fileStatus, torrentFilesAll: item.torrentFiles, checkBoxStatus: item.checkStatus())
        
-        cell.additionButtonActionBlock = { [weak treeView] cell in
-            guard let treeView = treeView else {
-                return;
-            }
-            let item = treeView.item(for: cell) as! DataObject
 
-            treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
-        }
         
         cell.checkButtonActionBlock = { [weak treeView] cell in
             guard let treeView = treeView else {
                 return;
             }
             let item = treeView.item(for: cell) as! DataObject
-            
-           // print(item.ckeckStatus())
-            
-            TransmissionRequest().filesUnwanted(id: item.torrentFiles.idTorrent, filesArray: item.idFiles()!, completion: { (check : Bool) in
 
-              //  self.update()
-          //      treeView.reloadRows(forItems: [item], with: RATreeViewRowAnimationNone)
-            
-
-            })
+           // print(item.checkStatus())
+            switch item.checkStatus() {
+            case 2,1:
+                TransmissionRequest().filesUnwanted(id: item.torrentFiles.idTorrent, filesArray: item.idFiles()!, completion: { (check : Bool) in
+                    
+                    if check {
+                        cell.checkButton.setImage(UIImage(named: "Unchecked Checkbox"), for: UIControlState.normal)
+                        self.update()
+                    }
+                })
+            default :
+                TransmissionRequest().filesWanted(id: item.torrentFiles.idTorrent, filesArray: item.idFiles()!, completion: { (check : Bool) in
+                    if check {
+                        cell.checkButton.setImage(UIImage(named: "Checked Checkbox"), for: UIControlState.normal)
+                        self.update()
+                    }
+                    
+                })
+            }
         }
         
         return cell
@@ -241,12 +245,20 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
                 self.data = tempDataObject
                 
                 //update your table data here
-               // DispatchQueue.main.async() {
-                    self.treeView.reloadData()
+                DispatchQueue.main.async() {
+                  self.treeView.reloadData()
 
-                //}
+               }
             })
         }
     }
+    
+    
+    
+    
+    @IBAction func updateButton(_ sender: Any) {
+        update()
+    }
+    
 }
 

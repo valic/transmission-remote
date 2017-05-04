@@ -301,6 +301,20 @@ class TransmissionRequest{
     }
     }
     
+    func filesWanted(id: Int, filesArray: [Int], completion: @escaping  (Bool) -> ()) {
+        let jsonString: [String: Any] = [
+            "arguments": [ "ids" :  [id],
+                           "files-wanted" : filesArray],
+            "method": "torrent-set"
+        ]
+        requestAlamofire(json: jsonString) { responseObject, error in
+            
+            let json = JSON(responseObject!)
+            
+            completion((json["result"].stringValue == "success"))
+        }
+    }
+    
 }
 
 

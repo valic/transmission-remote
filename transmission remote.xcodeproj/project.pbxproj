@@ -10,7 +10,6 @@
 		7CEE3D26C205D7A45BE6F8F3 /* Pods_transmission_remote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0879567FAF39148CA8BF34 /* Pods_transmission_remote.framework */; };
 		FB1C0B141EAE1C300046113D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1C0B131EAE1C300046113D /* SwiftyJSON.framework */; };
 		FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */; };
-		FB30CBDA1EAFA802006D2837 /* torrentFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB30CBD91EAFA802006D2837 /* torrentFilesViewController.swift */; };
 		FB3E26DB1EB0158600ACA6E2 /* RATreeView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB3E26DA1EB0158600ACA6E2 /* RATreeView.framework */; };
 		FB3E26DE1EB015EF00ACA6E2 /* TreeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3E26DC1EB015EF00ACA6E2 /* TreeTableViewCell.swift */; };
 		FB3E26DF1EB015EF00ACA6E2 /* TreeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB3E26DD1EB015EF00ACA6E2 /* TreeTableViewCell.xib */; };
@@ -52,7 +51,6 @@
 		D60BFAE4F5E58DB54026929E /* Pods-transmission remote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-transmission remote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-transmission remote/Pods-transmission remote.debug.xcconfig"; sourceTree = "<group>"; };
 		FB1C0B131EAE1C300046113D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/transmission_remote-gckwlstmmksxwohamblyuiiakbzn/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		FB30CBD91EAFA802006D2837 /* torrentFilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = torrentFilesViewController.swift; sourceTree = "<group>"; };
 		FB3E26DA1EB0158600ACA6E2 /* RATreeView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RATreeView.framework; path = "Pods/../build/Debug-iphoneos/RATreeView/RATreeView.framework"; sourceTree = "<group>"; };
 		FB3E26DC1EB015EF00ACA6E2 /* TreeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeTableViewCell.swift; sourceTree = "<group>"; };
 		FB3E26DD1EB015EF00ACA6E2 /* TreeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TreeTableViewCell.xib; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */,
 				FB4348421EA79F4E008FA2E6 /* TableViewController.swift */,
 				FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */,
-				FB30CBD91EAFA802006D2837 /* torrentFilesViewController.swift */,
 				FB3E26E21EB0163900ACA6E2 /* TreeViewController.swift */,
 				FB3E26DC1EB015EF00ACA6E2 /* TreeTableViewCell.swift */,
 				FB3E26DD1EB015EF00ACA6E2 /* TreeTableViewCell.xib */,
@@ -392,7 +389,6 @@
 				FB3E26E11EB0162200ACA6E2 /* DataObject.swift in Sources */,
 				FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */,
 				FB3E26DE1EB015EF00ACA6E2 /* TreeTableViewCell.swift in Sources */,
-				FB30CBDA1EAFA802006D2837 /* torrentFilesViewController.swift in Sources */,
 				FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
