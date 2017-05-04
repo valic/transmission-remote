@@ -21,10 +21,6 @@ class TableViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
-        
         // запускаем автоообновление
         update()
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
@@ -50,7 +46,6 @@ class TableViewController: UITableViewController{
         print("pause")
         if timer != nil {
             timer!.invalidate()
-            //  timer = nil
         }
         
     }
@@ -72,9 +67,6 @@ class TableViewController: UITableViewController{
         return getTorrent.count
     }
     
-    
-    
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
@@ -85,31 +77,66 @@ class TableViewController: UITableViewController{
         cell.torrentName!.text = torrent.name
         cell.status!.text = statusCode[torrent.status]
         
-        cell.progressView.setProgress(torrent.percentDone, animated: true)
+        cell.progressView.setProgress(torrent.percentDone, animated: false)
+        
+        cell.torrentProgress!.text = ""
         
         switch torrent.status {
         case 0:
             cell.progressView.progressTintColor = UIColor.gray
             
-            
-            if torrent.totalSize == torrent.sizeWhenDone {
-                cell.torrentProgress!.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone*100)%)"
+            if torrent.percentDone != 1.0 {
+                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.downloadedEver))) of \(formatBytes(byte: torrent.sizeWhenDone)) (\(torrent.percentDone * 100)%), uploaded \(formatBytes(byte: torrent.uploadedEver)) (ratio \(torrent.uploadRatio))"
+                cell.status!.textColor = UIColor.black
             }
             else{
-                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone*100)%)"
+                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.totalSize)), uploaded \(formatBytes(byte: torrent.uploadedEver)) (ratio \(torrent.uploadRatio))"
+                cell.status!.textColor = UIColor.black
             }
             
         case 4:
             cell.status!.text = "Downloading from \(torrent.peersSendingToUs) of \(torrent.peersConnected) peers - ↓ \(formatBytesInSecond(byte: torrent.rateDownload)) ↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
+            cell.torrentProgress!.text = "\(formatBytes(byte: torrent.downloadedEver))) of \(formatBytes(byte: torrent.sizeWhenDone)) (\(torrent.percentDone * 100)%) - \(secondToString(second: torrent.eta))"
+            
+            cell.status!.textColor = UIColor.black
             cell.progressView.progressTintColor = UIColor.green
         case 5:
             cell.progressView.progressTintColor = UIColor(red:0.00, green:0.47, blue:0.99, alpha:1.0)
         case 6:
             cell.status!.text = "Seeding to \(torrent.peersGettingFromUs) of \(torrent.peersConnected) peers - ↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
+            cell.status!.textColor = UIColor.black
+            
             cell.progressView.progressTintColor = UIColor(red:0.00, green:0.47, blue:0.99, alpha:1.0)
+            
+            if torrent.totalSize == torrent.sizeWhenDone {
+                cell.torrentProgress!.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%), uploaded \(formatBytes(byte: torrent.uploadedEver)) (ratio \(torrent.uploadRatio))"
+                cell.status!.textColor = UIColor.black
+            }
+            else{
+                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
+                cell.status!.textColor = UIColor.black
+            }
+            
+            
         default:
             cell.progressView.progressTintColor = UIColor.red
         }
+
+        switch torrent.error {
+        case 1:
+            cell.status!.text = "Tracker returned a warning: " + torrent.errorString
+            cell.status!.textColor = UIColor.red
+        case 2:
+            cell.status!.text = "Tracker returned an error: " + torrent.errorString
+            cell.status!.textColor = UIColor.red
+        case 3:
+            cell.status!.text = "Error: " + torrent.errorString
+            cell.status!.textColor = UIColor.red
+        default:
+            break
+        }
+        
+        
         
         return cell
     }
@@ -125,8 +152,8 @@ class TableViewController: UITableViewController{
         
         if !self.tableView.isEditing {
             
-            transmissionRequest.torrentGet(completion: { (x : [torrent]) in
-                self.getTorrent = x
+            transmissionRequest.torrentGet(completion: { (torrent : [torrent]) in
+                self.getTorrent = torrent
                 
                 //update your table data here
                 DispatchQueue.main.async() {
@@ -149,6 +176,16 @@ class TableViewController: UITableViewController{
     
     func formatBytesInSecond(byte: Int) -> String {
         return formatBytes(byte: byte)
+    }
+    
+    func secondToString(second: Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.maximumUnitCount = 1
+        
+        let timeInterval = TimeInterval(second)
+        return formatter.string(from: timeInterval)!
+        
     }
     
     

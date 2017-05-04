@@ -24,8 +24,14 @@ class torrent {
     var peersConnected:Int
     var totalSize:Int
     var sizeWhenDone:Int
+    var error:Int
+    var errorString:String
+    var uploadRatio:Float
+    var downloadedEver:Int
+    var uploadedEver:Int
     
-    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int) {
+    
+    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int, error:Int, errorString:String,  uploadRatio:Float, downloadedEver:Int, uploadedEver:Int) {
         self.id = id
         self.name = name
         self.percentDone = percentDone
@@ -38,6 +44,11 @@ class torrent {
         self.peersConnected = peersConnected
         self.totalSize = totalSize
         self.sizeWhenDone = sizeWhenDone
+        self.error = error
+        self.errorString = errorString
+        self.uploadRatio = uploadRatio
+        self.downloadedEver = downloadedEver
+        self.uploadedEver = uploadedEver
     }
 }
 
@@ -181,8 +192,25 @@ class TransmissionRequest{
         var torrentArray = [torrent]()
         
         let jsonString: [String: Any] = [
-            "arguments": [ "fields" :  ["id", "name", "percentDone", "eta", "rateDownload", "rateUpload", "queuePosition", "peersGettingFromUs", "peersSendingToUs",  "peersConnected", "status",
-                                        "totalSize", "sizeWhenDone"]],
+            "arguments": [ "fields" :  ["id",
+                                        "name",
+                                        "percentDone",
+                                        "eta",
+                                        "rateDownload",
+                                        "rateUpload",
+                                        "queuePosition",
+                                        "peersGettingFromUs",
+                                        "peersSendingToUs",
+                                        "peersConnected",
+                                        "status",
+                                        "totalSize",
+                                        "sizeWhenDone",
+                                        "error",
+                                        "errorString",
+                                        "uploadRatio",
+                                        "downloadedEver",
+                                        "uploadedEver"
+                                        ]],
             "method": "torrent-get"
         ]
 
@@ -203,7 +231,12 @@ class TransmissionRequest{
                                                 peersSendingToUs: item["peersSendingToUs"].intValue,
                                                 peersConnected: item["peersConnected"].intValue,
                                                 totalSize: item["totalSize"].intValue,
-                                                sizeWhenDone: item["sizeWhenDone"].intValue))
+                                                sizeWhenDone: item["sizeWhenDone"].intValue,
+                                                error: item["error"].intValue,
+                                                errorString: item["errorString"].stringValue,
+                                                uploadRatio: item["uploadRatio"].floatValue,
+                                                downloadedEver: item["downloadedEver"].intValue,
+                                                uploadedEver: item["uploadedEver"].intValue))
                 }
             }
             completion(torrentArray)
