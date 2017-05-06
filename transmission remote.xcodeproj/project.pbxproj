@@ -26,6 +26,7 @@
 		FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348421EA79F4E008FA2E6 /* TableViewController.swift */; };
 		FB4348451EA7A4CA008FA2E6 /* TransmissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */; };
 		FB52DEEE1EAE29FD00905C67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB52DEED1EAE29FD00905C67 /* Alamofire.framework */; };
+		FB7121E31EBD4AD00059E916 /* uTorrent_44.png in Resources */ = {isa = PBXBuildFile; fileRef = FB7121E21EBD4AD00059E916 /* uTorrent_44.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		FB4348421EA79F4E008FA2E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRequest.swift; sourceTree = "<group>"; };
 		FB52DEED1EAE29FD00905C67 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/transmission_remote-gckwlstmmksxwohamblyuiiakbzn/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		FB7121E21EBD4AD00059E916 /* uTorrent_44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uTorrent_44.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 		FB4348001EA78565008FA2E6 = {
 			isa = PBXGroup;
 			children = (
+				FB7121E21EBD4AD00059E916 /* uTorrent_44.png */,
 				FB43480B1EA78565008FA2E6 /* transmission remote */,
 				FB4348231EA78565008FA2E6 /* transmission remoteTests */,
 				FB43482E1EA78565008FA2E6 /* transmission remoteUITests */,
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB43481A1EA78565008FA2E6 /* LaunchScreen.storyboard in Resources */,
+				FB7121E31EBD4AD00059E916 /* uTorrent_44.png in Resources */,
 				FB3E26DF1EB015EF00ACA6E2 /* TreeTableViewCell.xib in Resources */,
 				FB4348171EA78565008FA2E6 /* Assets.xcassets in Resources */,
 				FB4348121EA78565008FA2E6 /* Main.storyboard in Resources */,
