@@ -44,6 +44,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    // MARK: - Handle File Sharing
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        // 1
+        guard url.pathExtension == "torrent" else { return false }
+        
+        // 2
+        TableViewController.importData(from: url)
+        /*
+        // 3
+        guard let navigationController = window?.rootViewController as? UINavigationController,
+            let TableViewController = navigationController.viewControllers.first as? TableViewController else {
+                return true
+        }
+        */
+        // 4
+     //   TableViewController.tableView.reloadData()
+        return true
+    }
+    
+    
 
     // MARK: - Core Data stack
 

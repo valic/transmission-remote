@@ -8,11 +8,24 @@
 
 import UIKit
 
+struct Section {
+    var type: Int
+    var items: [torrent]
+    
+    init(type: Int, items: [torrent]) {
+        self.type = type
+        self.items = items
+    }
+}
+
 class TableViewController: UITableViewController{
     
     let transmissionRequest = TransmissionRequest()
     var getTorrent = [torrent]()
+    var sectionsTorrent : [Section] = []
     var timer:Timer?
+    
+    
     
     var ids : Int = 0
     
@@ -50,6 +63,7 @@ class TableViewController: UITableViewController{
         
     }
     
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,22 +71,28 @@ class TableViewController: UITableViewController{
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+    override func numberOfSections(in tableView: UITableView) -> Int  {
+        print(sectionsTorrent.count)
+        return sectionsTorrent.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return getTorrent.count
+        return sectionsTorrent[section].items.count
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return statusCode[sectionsTorrent[section].type]
+        
+    }
+//  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
         //  getTorrent = getTorrent.sorted(by: { $0.id < $1.id })
+   
+        let torrent = sectionsTorrent[indexPath.section].items[indexPath.row]
         
-        let torrent = getTorrent[indexPath.row]
+        print(torrent.name)
         
         cell.torrentName!.text = torrent.name
         cell.status!.text = statusCode[torrent.status]
@@ -152,8 +172,34 @@ class TableViewController: UITableViewController{
         
         if !self.tableView.isEditing {
             
+            var sections : [Section] = []
+            
             transmissionRequest.torrentGet(completion: { (torrent : [torrent]) in
                 self.getTorrent = torrent
+                
+                var x = Set<Int>()
+                
+                for item in self.getTorrent{
+                    
+                    if let index = sections.index(where: {$0.type == item.status}){
+                        sections[index].items.append(item)
+                    }
+                    else{
+                        sections.append(Section(type: item.status, items: [item]))
+                    }
+                    
+                    x.insert(item.status)
+                    
+                }
+                
+                print(x)
+                
+                self.sectionsTorrent = sections
+                
+                for i in sections {
+                  print(i.type)
+                }
+                
                 
                 //update your table data here
                 DispatchQueue.main.async() {
@@ -278,6 +324,27 @@ class TableViewController: UITableViewController{
         }
     }
  
+    
+     static func importData(from url: URL) {
+
+
+        let data = try! Data(contentsOf: url)
+        print(data.base64EncodedString())
+        
+        
+        TransmissionRequest().torrentAdd(data: data, completion: { (check : Bool) in
+            
+            if check {
+           //     self.update()
+            }
+        })
+
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            print("Failed to remove item from Inbox")
+        }
+    }
     
     
     /*

@@ -9,7 +9,8 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>uTorrent_44.png</string>
+				<string>22 x 29 pixels.png</string>
+				<string>44 x 58 pixels (high resolution).png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Torrent File</string>

@@ -287,6 +287,19 @@ class TransmissionRequest{
         }
     }
     
+    func torrentAdd(data: Data, completion: @escaping  (Bool) -> ()) {
+        let jsonString: [String: Any] = [
+            "arguments": [ "metainfo" : data.base64EncodedString()],
+            "method": "torrent-add"
+        ]
+        requestAlamofire(json: jsonString) { responseObject, error in
+            
+            let json = JSON(responseObject!)
+            
+            completion((json["result"].stringValue == "success"))
+        }
+    }
+    
     func stopTorrent(id: Int){
         
         let jsonString: [String: Any] = [
