@@ -20,10 +20,12 @@ struct Section {
 
 class TableViewController: UITableViewController{
     
+    @IBOutlet weak var menuBarButton: UIBarButtonItem!
+    
     let transmissionRequest = TransmissionRequest()
-    var getTorrent = [torrent]()
     var sectionsTorrent : [Section] = []
     var timer:Timer?
+    
     
     
     
@@ -44,6 +46,15 @@ class TableViewController: UITableViewController{
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActiveNotification), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+   //     navigationController?.setToolbarHidden(false, animated: true)
+        
+        if self.revealViewController() != nil {
+            menuBarButton.target = self.revealViewController()
+            menuBarButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         
         
     }
@@ -72,7 +83,6 @@ class TableViewController: UITableViewController{
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int  {
-        print(sectionsTorrent.count)
         return sectionsTorrent.count
     }
     
@@ -91,8 +101,6 @@ class TableViewController: UITableViewController{
         //  getTorrent = getTorrent.sorted(by: { $0.id < $1.id })
    
         let torrent = sectionsTorrent[indexPath.section].items[indexPath.row]
-        
-        print(torrent.name)
         
         cell.torrentName!.text = torrent.name
         cell.status!.text = statusCode[torrent.status]
@@ -175,11 +183,8 @@ class TableViewController: UITableViewController{
             var sections : [Section] = []
             
             transmissionRequest.torrentGet(completion: { (torrent : [torrent]) in
-                self.getTorrent = torrent
-                
-                var x = Set<Int>()
-                
-                for item in self.getTorrent{
+
+                for item in torrent{
                     
                     if let index = sections.index(where: {$0.type == item.status}){
                         sections[index].items.append(item)
@@ -187,19 +192,9 @@ class TableViewController: UITableViewController{
                     else{
                         sections.append(Section(type: item.status, items: [item]))
                     }
-                    
-                    x.insert(item.status)
-                    
                 }
-                
-                print(x)
-                
+ 
                 self.sectionsTorrent = sections
-                
-                for i in sections {
-                  print(i.type)
-                }
-                
                 
                 //update your table data here
                 DispatchQueue.main.async() {
@@ -208,6 +203,10 @@ class TableViewController: UITableViewController{
             })
         }
     }
+    
+
+    
+    
     
     func formatBytes(byte: Int) -> String {
         
@@ -260,7 +259,13 @@ class TableViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         
-        print(statusCode[self.getTorrent[(editActionsForRowAt as NSIndexPath).row].status] ?? String())
+        let torrent = sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row]
+        
+   //     print(statusCode[self.sectionsTorrent[(editActionsForRowAt as NSIndexPath).row].type])
+     //  print(self.sectionsTorrent[(editActionsForRowAt as NSIndexPath).row].items[0].id)
+        
+        print(torrent.id)
+
         
         let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
             print("more button tapped")
@@ -269,12 +274,13 @@ class TableViewController: UITableViewController{
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             
-            self.transmissionRequest.deleteTorrent(id: self.getTorrent[(editActionsForRowAt as NSIndexPath).row].id)
+            //self.transmissionRequest.deleteTorrent(id: self.sectionsTorrent[(editActionsForRowAt as NSIndexPath).row].items[0].id)
             self.tableView.isEditing=false
             self.update()
         }
         delete.backgroundColor = .red
         
+        /*
         var startStopTorrent: UITableViewRowAction
         
         switch getTorrent[(editActionsForRowAt as NSIndexPath).row].status {
@@ -297,14 +303,14 @@ class TableViewController: UITableViewController{
             startStopTorrent.backgroundColor = UIColor.orange
         }
         
-        
-        return [startStopTorrent, delete, more]
+        */
+        return [ delete, more]
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let torrent = getTorrent[(indexPath as NSIndexPath).row]
+        let torrent = sectionsTorrent[indexPath.section].items[indexPath.row]
         
         ids = torrent.id
 

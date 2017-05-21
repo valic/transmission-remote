@@ -16,6 +16,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var RPCpath: UITextField!
+    @IBOutlet weak var menuBarButton: UIBarButtonItem!
     
     let userDefults = UserDefaults.standard
     
@@ -48,6 +49,13 @@ class SettingsViewController: UIViewController {
             RPCpath.text = RPCpath_userDefults
         } else {
             RPCpath.text = "/transmission/rpc"
+        }
+        
+        if self.revealViewController() != nil {
+            menuBarButton.target = self.revealViewController()
+            menuBarButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
         
