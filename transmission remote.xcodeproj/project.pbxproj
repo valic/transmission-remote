@@ -30,6 +30,7 @@
 		FB714BFF1ED2216D00042673 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714BFE1ED2216D00042673 /* MenuTableViewController.swift */; };
 		FBB636FC1EBDEC6A00341644 /* 22 x 29 pixels.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB636FA1EBDEC6A00341644 /* 22 x 29 pixels.png */; };
 		FBB636FD1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png in Resources */ = {isa = PBXBuildFile; fileRef = FBB636FB1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png */; };
+		FBBDB1A51ED58FB0003D3177 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDB1A41ED58FB0003D3177 /* SettingsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		FB714BFE1ED2216D00042673 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		FBB636FA1EBDEC6A00341644 /* 22 x 29 pixels.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22 x 29 pixels.png"; sourceTree = "<group>"; };
 		FBB636FB1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44 x 58 pixels (high resolution).png"; sourceTree = "<group>"; };
+		FBBDB1A41ED58FB0003D3177 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +156,9 @@
 				FBB636F91EBDEC2900341644 /* DocumentIcon */,
 				FB43483D1EA79123008FA2E6 /* transmission remote.entitlements */,
 				FB43480C1EA78565008FA2E6 /* AppDelegate.swift */,
-				FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */,
 				FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */,
+				FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */,
+				FBBDB1A41ED58FB0003D3177 /* SettingsTableViewController.swift */,
 				FB4348421EA79F4E008FA2E6 /* TableViewController.swift */,
 				FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */,
 				FB3E26E21EB0163900ACA6E2 /* TreeViewController.swift */,
@@ -294,8 +297,11 @@
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.Keychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -424,6 +430,7 @@
 				FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */,
 				FB3E26E11EB0162200ACA6E2 /* DataObject.swift in Sources */,
 				FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */,
+				FBBDB1A51ED58FB0003D3177 /* SettingsTableViewController.swift in Sources */,
 				FB70D9991ECCE15E00BD808B /* SWRevealViewController.m in Sources */,
 				FB3E26DE1EB015EF00ACA6E2 /* TreeTableViewCell.swift in Sources */,
 				FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */,
@@ -582,7 +589,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "transmission remote/transmission remote.entitlements";
 				DEVELOPMENT_TEAM = M6RU8K5R5C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -605,7 +611,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "transmission remote/transmission remote.entitlements";
 				DEVELOPMENT_TEAM = M6RU8K5R5C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

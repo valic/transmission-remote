@@ -147,45 +147,47 @@ class TransmissionRequest{
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         // insert json data to the request
         request.httpBody = jsonData
-        request.setValue(transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
         
         
         
-        Alamofire.request(request).responseJSON { response in
+        func alamofireRequest (request: URLRequest, SessionId: String){
             
-            switch response.result {
-            case .success(let value):
+            var request = request
+            request.setValue(transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
+            
+            Alamofire.request(request).responseJSON { response in
                 
-                completionHandler(value as AnyObject, nil)
-                
-            case .failure(let error):
-                
-                if response.response?.statusCode == 409 {
-                    if let SessionId = response.response?.allHeaderFields["X-Transmission-Session-Id"] as? String {
+                switch response.result {
+                case .success(let value):
+                    
+                    completionHandler(value as AnyObject, nil)
+                    
+                case .failure(let error):
+                    
+                    if error._code == NSURLErrorTimedOut {
                         
-                        self.transmissionSessionId = SessionId
-                        request.setValue(self.transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
-                        
-                        Alamofire.request(request).responseJSON { response in
-                            switch response.result {
-                            case .success(let value):
-                                
-                                completionHandler(value as AnyObject, nil)
-                                
-                            case .failure(let error):
-                                completionHandler(nil, error as NSError)
-                                print("Failure \(error)")
-                            }
-                        }
                     }
-                }
-                else{
+                    
+                    if let httpStatusCode = response.response?.statusCode {
+                        switch(httpStatusCode) {
+                        case 400:
+                            print("Username or password not provided.")
+                        case 401:
+                            print("Incorrect password for user.")
+                        case 409 : if let SessionId = response.response?.allHeaderFields["X-Transmission-Session-Id"] as? String {
+                            self.transmissionSessionId = SessionId
+                            alamofireRequest(request: request, SessionId: self.transmissionSessionId)
+                            }
+                        default : break
+                        }
+                        
+                    }
                     completionHandler(nil, error as NSError)
                     print("Failure \(error)")
                 }
-                
             }
         }
+        alamofireRequest(request: request, SessionId: self.transmissionSessionId)
     }
     func torrentGet(completion: @escaping  ([torrent]) -> ()) {
         
@@ -215,7 +217,9 @@ class TransmissionRequest{
         ]
 
         requestAlamofire(json: jsonString) { responseObject, error in
-            let json = JSON(responseObject!)
+
+            if let responseObject = responseObject {
+            let json = JSON(responseObject)
             
             if json["result"].stringValue == "success" {
                 for item in json["arguments"]["torrents"].arrayValue {
@@ -240,6 +244,7 @@ class TransmissionRequest{
                 }
             }
             completion(torrentArray)
+        }
         }
     }
     func torrentFilesGet(ids:Int, completion: @escaping  ([torrentFilesAll]) -> ()) {
