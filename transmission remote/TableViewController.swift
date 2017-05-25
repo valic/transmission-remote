@@ -18,7 +18,7 @@ struct Section {
     }
 }
 
-class TableViewController: UITableViewController{
+class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     
     @IBOutlet weak var menuBarButton: UIBarButtonItem!
     
@@ -26,8 +26,7 @@ class TableViewController: UITableViewController{
     var sectionsTorrent : [Section] = []
     var timer:Timer?
     
-    
-    
+
     
     var ids : Int = 0
     
@@ -56,7 +55,19 @@ class TableViewController: UITableViewController{
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
+        // DZNEmptyDataSet
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.tableFooterView = UIView()
         
+        
+    }
+    
+    //MARK: DZNEmptyDataSet
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Welcome"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
     }
     
     func applicationDidBecomeActiveNotification(notification : NSNotification) {

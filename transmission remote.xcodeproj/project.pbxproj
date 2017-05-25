@@ -22,7 +22,6 @@
 		FB43481A1EA78565008FA2E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB4348181EA78565008FA2E6 /* LaunchScreen.storyboard */; };
 		FB4348251EA78565008FA2E6 /* transmission_remoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348241EA78565008FA2E6 /* transmission_remoteTests.swift */; };
 		FB4348301EA78565008FA2E6 /* transmission_remoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43482F1EA78565008FA2E6 /* transmission_remoteUITests.swift */; };
-		FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */; };
 		FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348421EA79F4E008FA2E6 /* TableViewController.swift */; };
 		FB4348451EA7A4CA008FA2E6 /* TransmissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */; };
 		FB52DEEE1EAE29FD00905C67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB52DEED1EAE29FD00905C67 /* Alamofire.framework */; };
@@ -31,6 +30,7 @@
 		FBB636FC1EBDEC6A00341644 /* 22 x 29 pixels.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB636FA1EBDEC6A00341644 /* 22 x 29 pixels.png */; };
 		FBB636FD1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png in Resources */ = {isa = PBXBuildFile; fileRef = FBB636FB1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png */; };
 		FBBDB1A51ED58FB0003D3177 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDB1A41ED58FB0003D3177 /* SettingsTableViewController.swift */; };
+		FBBDE70A1ED74E5100119433 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBDE7091ED74E5100119433 /* UIScrollView+EmptyDataSet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +75,6 @@
 		FB43482F1EA78565008FA2E6 /* transmission_remoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = transmission_remoteUITests.swift; sourceTree = "<group>"; };
 		FB4348311EA78565008FA2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB43483D1EA79123008FA2E6 /* transmission remote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "transmission remote.entitlements"; sourceTree = "<group>"; };
-		FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
 		FB4348421EA79F4E008FA2E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRequest.swift; sourceTree = "<group>"; };
 		FB52DEED1EAE29FD00905C67 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/transmission_remote-gckwlstmmksxwohamblyuiiakbzn/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
@@ -86,6 +85,8 @@
 		FBB636FA1EBDEC6A00341644 /* 22 x 29 pixels.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22 x 29 pixels.png"; sourceTree = "<group>"; };
 		FBB636FB1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44 x 58 pixels (high resolution).png"; sourceTree = "<group>"; };
 		FBBDB1A41ED58FB0003D3177 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		FBBDE7081ED74E5100119433 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		FBBDE7091ED74E5100119433 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,21 +158,18 @@
 				FB43483D1EA79123008FA2E6 /* transmission remote.entitlements */,
 				FB43480C1EA78565008FA2E6 /* AppDelegate.swift */,
 				FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */,
-				FB4348401EA793BD008FA2E6 /* SettingsViewController.swift */,
 				FBBDB1A41ED58FB0003D3177 /* SettingsTableViewController.swift */,
+				FBBDE6FF1ED71D1500119433 /* TreeTableView */,
 				FB4348421EA79F4E008FA2E6 /* TableViewController.swift */,
 				FB224BF71EA96C4B00A0B9F6 /* TableViewCell.swift */,
-				FB3E26E21EB0163900ACA6E2 /* TreeViewController.swift */,
-				FB3E26DC1EB015EF00ACA6E2 /* TreeTableViewCell.swift */,
 				FB714BFE1ED2216D00042673 /* MenuTableViewController.swift */,
-				FB3E26DD1EB015EF00ACA6E2 /* TreeTableViewCell.xib */,
 				FB4348101EA78565008FA2E6 /* Main.storyboard */,
 				FB3E26E01EB0162200ACA6E2 /* DataObject.swift */,
 				FB4348161EA78565008FA2E6 /* Assets.xcassets */,
 				FB4348181EA78565008FA2E6 /* LaunchScreen.storyboard */,
 				FB43481B1EA78565008FA2E6 /* Info.plist */,
 				FB4348131EA78565008FA2E6 /* transmission_remote.xcdatamodeld */,
-				FB70D9951ECCE12800BD808B /* Slider menu */,
+				FB70D9951ECCE12800BD808B /* framework */,
 			);
 			path = "transmission remote";
 			sourceTree = "<group>";
@@ -194,14 +192,16 @@
 			path = "transmission remoteUITests";
 			sourceTree = "<group>";
 		};
-		FB70D9951ECCE12800BD808B /* Slider menu */ = {
+		FB70D9951ECCE12800BD808B /* framework */ = {
 			isa = PBXGroup;
 			children = (
 				FB70D9961ECCE15E00BD808B /* transmission remote-Bridging-Header.h */,
+				FBBDE7081ED74E5100119433 /* UIScrollView+EmptyDataSet.h */,
+				FBBDE7091ED74E5100119433 /* UIScrollView+EmptyDataSet.m */,
 				FB70D9971ECCE15E00BD808B /* SWRevealViewController.h */,
 				FB70D9981ECCE15E00BD808B /* SWRevealViewController.m */,
 			);
-			name = "Slider menu";
+			name = framework;
 			sourceTree = "<group>";
 		};
 		FBB636F91EBDEC2900341644 /* DocumentIcon */ = {
@@ -211,6 +211,16 @@
 				FBB636FB1EBDEC6A00341644 /* 44 x 58 pixels (high resolution).png */,
 			);
 			name = DocumentIcon;
+			sourceTree = "<group>";
+		};
+		FBBDE6FF1ED71D1500119433 /* TreeTableView */ = {
+			isa = PBXGroup;
+			children = (
+				FB3E26E21EB0163900ACA6E2 /* TreeViewController.swift */,
+				FB3E26DC1EB015EF00ACA6E2 /* TreeTableViewCell.swift */,
+				FB3E26DD1EB015EF00ACA6E2 /* TreeTableViewCell.xib */,
+			);
+			name = TreeTableView;
 			sourceTree = "<group>";
 		};
 		FDF44FEF4B9ABE5F8983F76E /* Pods */ = {
@@ -432,8 +442,8 @@
 				FB224BF81EA96C4B00A0B9F6 /* TableViewCell.swift in Sources */,
 				FBBDB1A51ED58FB0003D3177 /* SettingsTableViewController.swift in Sources */,
 				FB70D9991ECCE15E00BD808B /* SWRevealViewController.m in Sources */,
+				FBBDE70A1ED74E5100119433 /* UIScrollView+EmptyDataSet.m in Sources */,
 				FB3E26DE1EB015EF00ACA6E2 /* TreeTableViewCell.swift in Sources */,
-				FB4348411EA793BD008FA2E6 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
