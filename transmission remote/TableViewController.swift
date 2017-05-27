@@ -25,6 +25,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     let transmissionRequest = TransmissionRequest()
     var sectionsTorrent : [Section] = []
     var timer:Timer?
+    var errorRequest: NSError?
     
 
     
@@ -55,7 +56,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-        // DZNEmptyDataSet
+        // Setting DZNEmptyDataSet
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
@@ -65,9 +66,34 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     
     //MARK: DZNEmptyDataSet
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Welcome"
+        
+        var str = String()
+        /*
+        if self.errorRequest?._code == NSURLErrorTimedOut {
+            str = "Connection timed out"
+        }*/
+
+        switch self.errorRequest?._code {
+        case NSURLErrorTimedOut?:
+            str = "Connection timed out"
+        case nil:
+            str = "Not Torrent"
+        default:
+            break
+        }
+
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
         return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Tap the button below to add your first grokkleglob."
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "Sad Cloud")
     }
     
     func applicationDidBecomeActiveNotification(notification : NSNotification) {
@@ -193,19 +219,21 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             
             var sections : [Section] = []
             
-            transmissionRequest.torrentGet(completion: { (torrent : [torrent]) in
-
-                for item in torrent{
-                    
-                    if let index = sections.index(where: {$0.type == item.status}){
-                        sections[index].items.append(item)
-                    }
-                    else{
-                        sections.append(Section(type: item.status, items: [item]))
+            transmissionRequest.torrentGet(completion: { (torrent : [torrent]?, error: NSError?) in
+                
+                if let torrent = torrent {
+                    for item in torrent{
+                        
+                        if let index = sections.index(where: {$0.type == item.status}){
+                            sections[index].items.append(item)
+                        }
+                        else{
+                            sections.append(Section(type: item.status, items: [item]))
+                        }
                     }
                 }
- 
                 self.sectionsTorrent = sections
+                self.errorRequest = error
                 
                 //update your table data here
                 DispatchQueue.main.async() {

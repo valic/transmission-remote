@@ -140,18 +140,58 @@ class TransmissionRequest{
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let url = URL(string: "http://192.168.64.100:9091/transmission/rpc/")!
+        let url = URL(string: "http://192.168.64.57:9091/transmission/rpc/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         // insert json data to the request
         request.httpBody = jsonData
+        request.setValue(transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
+        request.timeoutInterval = 3
         
         
-        
-        func alamofireRequest (request: URLRequest, SessionId: String){
+        Alamofire.request(request).responseJSON { response in
             
+            switch response.result {
+            case .success(let value):
+                
+                completionHandler(value as AnyObject, nil)
+                
+            case .failure(let error):
+                
+                if response.response?.statusCode == 409 {
+                    if let SessionId = response.response?.allHeaderFields["X-Transmission-Session-Id"] as? String {
+                        
+                        self.transmissionSessionId = SessionId
+                        request.setValue(self.transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
+                        
+                        Alamofire.request(request).responseJSON { response in
+                            switch response.result {
+                            case .success(let value):
+                                
+                                completionHandler(value as AnyObject, nil)
+                                
+                            case .failure(let error):
+                                completionHandler(nil, error as NSError)
+                                print("Failure \(error)")
+                            }
+                        }
+                    }
+                }
+                else{
+                    completionHandler(nil, error as NSError)
+                    print("Failure \(error)")
+                }
+                
+            }
+        }
+
+        
+        
+        /*
+        func alamofireRequest (request: URLRequest, SessionId: String){
+         
             var request = request
             request.setValue(transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
             
@@ -164,9 +204,7 @@ class TransmissionRequest{
                     
                 case .failure(let error):
                     
-                    if error._code == NSURLErrorTimedOut {
-                        
-                    }
+                    
                     
                     if let httpStatusCode = response.response?.statusCode {
                         switch(httpStatusCode) {
@@ -187,9 +225,9 @@ class TransmissionRequest{
                 }
             }
         }
-        alamofireRequest(request: request, SessionId: self.transmissionSessionId)
+        alamofireRequest(request: request, SessionId: self.transmissionSessionId)*/
     }
-    func torrentGet(completion: @escaping  ([torrent]) -> ()) {
+    func torrentGet(completion: @escaping  ([torrent]?, NSError?) -> ()) {
         
         var torrentArray = [torrent]()
         
@@ -212,39 +250,40 @@ class TransmissionRequest{
                                         "uploadRatio",
                                         "downloadedEver",
                                         "uploadedEver"
-                                        ]],
+                ]],
             "method": "torrent-get"
         ]
-
+        
         requestAlamofire(json: jsonString) { responseObject, error in
-
-            if let responseObject = responseObject {
-            let json = JSON(responseObject)
             
-            if json["result"].stringValue == "success" {
-                for item in json["arguments"]["torrents"].arrayValue {
-                    
-                    torrentArray.append(torrent(id: item["id"].intValue,
-                                                name: item["name"].stringValue,
-                                                percentDone: item["percentDone"].floatValue,
-                                                eta: item["eta"].intValue,
-                                                rateDownload: item["rateDownload"].intValue,
-                                                rateUpload: item["rateUpload"].intValue,
-                                                status: item["status"].intValue,
-                                                peersGettingFromUs: item["peersGettingFromUs"].intValue,
-                                                peersSendingToUs: item["peersSendingToUs"].intValue,
-                                                peersConnected: item["peersConnected"].intValue,
-                                                totalSize: item["totalSize"].intValue,
-                                                sizeWhenDone: item["sizeWhenDone"].intValue,
-                                                error: item["error"].intValue,
-                                                errorString: item["errorString"].stringValue,
-                                                uploadRatio: item["uploadRatio"].floatValue,
-                                                downloadedEver: item["downloadedEver"].intValue,
-                                                uploadedEver: item["uploadedEver"].intValue))
+            if let responseObject = responseObject {
+                let json = JSON(responseObject)
+                
+                if json["result"].stringValue == "success" {
+                    for item in json["arguments"]["torrents"].arrayValue {
+                        
+                        torrentArray.append(torrent(id: item["id"].intValue,
+                                                    name: item["name"].stringValue,
+                                                    percentDone: item["percentDone"].floatValue,
+                                                    eta: item["eta"].intValue,
+                                                    rateDownload: item["rateDownload"].intValue,
+                                                    rateUpload: item["rateUpload"].intValue,
+                                                    status: item["status"].intValue,
+                                                    peersGettingFromUs: item["peersGettingFromUs"].intValue,
+                                                    peersSendingToUs: item["peersSendingToUs"].intValue,
+                                                    peersConnected: item["peersConnected"].intValue,
+                                                    totalSize: item["totalSize"].intValue,
+                                                    sizeWhenDone: item["sizeWhenDone"].intValue,
+                                                    error: item["error"].intValue,
+                                                    errorString: item["errorString"].stringValue,
+                                                    uploadRatio: item["uploadRatio"].floatValue,
+                                                    downloadedEver: item["downloadedEver"].intValue,
+                                                    uploadedEver: item["uploadedEver"].intValue))
+                    }
                 }
             }
-            completion(torrentArray)
-        }
+            completion(torrentArray, error)
+            
         }
     }
     func torrentFilesGet(ids:Int, completion: @escaping  ([torrentFilesAll]) -> ()) {
@@ -252,46 +291,50 @@ class TransmissionRequest{
         var torrentFilesAllArray = [torrentFilesAll]()
         
         let jsonString: [String: Any] = [
-            "arguments": [ "fields" :  ["id", "files", "fileStats"],
-                           "ids": [ ids ]],
-
+            "arguments": [
+                "fields": [ "id", "files", "fileStats" ],
+                "ids": [4]
+            ],
             "method": "torrent-get"
         ]
         
         requestAlamofire(json: jsonString) { responseObject, error in
-            let json = JSON(responseObject!)
             
-            var filesArray =  [torrentFiles]()
-            var fileStatsArray = [torrentFileStats]()
-            
-            if json["result"].stringValue == "success" {
-                for item in json["arguments"]["torrents"].arrayValue {
-                    
-                    for (index, itemFiles) in item["files"].arrayValue.enumerated(){
+            if let responseObject = responseObject {
+                let json = JSON(responseObject)
+                
+                
+                var filesArray =  [torrentFiles]()
+                var fileStatsArray = [torrentFileStats]()
+                
+                if json["result"].stringValue == "success" {
+                    for item in json["arguments"]["torrents"].arrayValue {
                         
-                        filesArray.append(torrentFiles(id: index,
-                                                       name: itemFiles["name"].stringValue,
-                                                       length: itemFiles["id"].intValue))
+                        for (index, itemFiles) in item["files"].arrayValue.enumerated(){
+                            
+                            filesArray.append(torrentFiles(id: index,
+                                                           name: itemFiles["name"].stringValue,
+                                                           length: itemFiles["id"].intValue))
+                            
+                        }
                         
-                    }
-                    
-                    for itemfileStats in item["fileStats"].arrayValue{
+                        for itemfileStats in item["fileStats"].arrayValue{
+                            
+                            fileStatsArray.append(torrentFileStats(bytesCompleted: itemfileStats["bytesCompleted"].intValue,
+                                                                   priority: itemfileStats["priority"].intValue,
+                                                                   wanted: itemfileStats["wanted"].boolValue))
+                            
+                        }
                         
-                        fileStatsArray.append(torrentFileStats(bytesCompleted: itemfileStats["bytesCompleted"].intValue,
-                                                               priority: itemfileStats["priority"].intValue,
-                                                               wanted: itemfileStats["wanted"].boolValue))
-                        
-                    }
-                    
-                    for i in  0..<filesArray.count  {
-                    torrentFilesAllArray.append(torrentFilesAll(idTorrent: ids, torrentFiles: filesArray[i], torrentFileStats: fileStatsArray[i]))
+                        for i in  0..<filesArray.count  {
+                            torrentFilesAllArray.append(torrentFilesAll(idTorrent: ids, torrentFiles: filesArray[i], torrentFileStats: fileStatsArray[i]))
+                        }
                     }
                 }
             }
             completion(torrentFilesAllArray)
         }
     }
-    
     func torrentAdd(data: Data, completion: @escaping  (Bool) -> ()) {
         let jsonString: [String: Any] = [
             "arguments": [ "metainfo" : data.base64EncodedString()],
@@ -304,7 +347,6 @@ class TransmissionRequest{
             completion((json["result"].stringValue == "success"))
         }
     }
-    
     func stopTorrent(id: Int){
         
         let jsonString: [String: Any] = [
@@ -316,7 +358,6 @@ class TransmissionRequest{
         }
         
     }
-    
     func startTorrent(id: Int){
         
         let jsonString: [String: Any] = [
@@ -327,9 +368,7 @@ class TransmissionRequest{
         requestAlamofire(json: jsonString) { responseObject, error in
         }
     }
-    
     func deleteTorrent(id: Int){
-        
         let jsonString: [String: Any] = [
             "arguments": [ "ids" :  [id]],
             "method": "torrent-remove"

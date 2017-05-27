@@ -51,6 +51,8 @@ class TreeViewController: UITableViewController, RATreeViewDelegate, RATreeViewD
         setupTreeView()
       //  updateNavigationBarButtons()
         
+        print(ids)
+        
         update()
 
         // timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TreeViewController.update), userInfo: nil, repeats: true)
