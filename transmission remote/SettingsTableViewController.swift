@@ -16,8 +16,10 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var RPCpath: UITextField!
     @IBOutlet weak var menuBarButton: UIBarButtonItem!
+    @IBOutlet weak var authenticationSwitch: UISwitch!
     
     let userDefults = UserDefaults.standard
+    var authenticationVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,5 +70,24 @@ class SettingsTableViewController: UITableViewController {
         userDefults.set(RPCpath.text, forKey: "RPCpath")
         
     }
+    
 
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var rowHeight:CGFloat = 0.0
+        
+        if(indexPath.section == 2 && indexPath.row > 0 && !authenticationSwitch.isOn){
+            rowHeight = 0.0
+        }else{
+            rowHeight = 44.0    //or whatever you like
+        }
+        
+        return rowHeight
+    }
+
+
+    @IBAction func authenticationSwitch(_ sender: Any) {
+        
+        tableView.reloadData()
+    }
 }
