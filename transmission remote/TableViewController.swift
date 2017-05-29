@@ -69,13 +69,11 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
         var str = String()
 
-        switch self.errorRequest?._code {
-        case NSURLErrorTimedOut?:
-            str = "Connection timed out"
+        switch self.errorRequest {
         case nil:
             str = "Not Torrent"
         default:
-            break
+            str = (self.errorRequest?.localizedDescription)!
         }
 
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
@@ -83,13 +81,24 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Tap the button below to add your first grokkleglob."
+        
+        var str = String()
+        
+        switch self.errorRequest {
+        case nil:
+            str = "Необходимо добавить torrent файл"
+        default:
+            str = ""
+        }
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
         return NSAttributedString(string: str, attributes: attrs)
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        if self.errorRequest != nil {
         return UIImage(named: "Sad Cloud")
+        }
+        return UIImage(named: "Error")
     }
     
     func applicationDidBecomeActiveNotification(notification : NSNotification) {
