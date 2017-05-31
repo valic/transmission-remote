@@ -193,45 +193,6 @@ class TransmissionRequest{
             }
         }
 
-        
-        
-        /*
-        func alamofireRequest (request: URLRequest, SessionId: String){
-         
-            var request = request
-            request.setValue(transmissionSessionId, forHTTPHeaderField: "X-Transmission-Session-Id")
-            
-            Alamofire.request(request).responseJSON { response in
-                
-                switch response.result {
-                case .success(let value):
-                    
-                    completionHandler(value as AnyObject, nil)
-                    
-                case .failure(let error):
-                    
-                    
-                    
-                    if let httpStatusCode = response.response?.statusCode {
-                        switch(httpStatusCode) {
-                        case 400:
-                            print("Username or password not provided.")
-                        case 401:
-                            print("Incorrect password for user.")
-                        case 409 : if let SessionId = response.response?.allHeaderFields["X-Transmission-Session-Id"] as? String {
-                            self.transmissionSessionId = SessionId
-                            alamofireRequest(request: request, SessionId: self.transmissionSessionId)
-                            }
-                        default : break
-                        }
-                        
-                    }
-                    completionHandler(nil, error as NSError)
-                    print("Failure \(error)")
-                }
-            }
-        }
-        alamofireRequest(request: request, SessionId: self.transmissionSessionId)*/
     }
     func torrentGet(completion: @escaping  ([torrent]?, NSError?) -> ()) {
         
@@ -299,7 +260,7 @@ class TransmissionRequest{
         let jsonString: [String: Any] = [
             "arguments": [
                 "fields": [ "id", "files", "fileStats" ],
-                "ids": [4]
+                "ids": [ids]
             ],
             "method": "torrent-get"
         ]

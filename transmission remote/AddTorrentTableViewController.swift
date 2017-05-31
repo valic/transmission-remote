@@ -11,15 +11,12 @@ import UIKit
 class AddTorrentTableViewController: UITableViewController {
     
     @IBOutlet weak var torrentName: UILabel!
-    @IBOutlet weak var torrentSegmentControl: UISegmentedControl!
     @IBOutlet weak var torrentStartSwitch: UISwitch!
     
     static var url:URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-   //   self.navigationController?.isNavigationBarHidden = false
         
     }
     
@@ -35,9 +32,6 @@ class AddTorrentTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        // Show the navigation bar on other view controllers
-      //  self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        
     
     }
     
@@ -46,7 +40,6 @@ class AddTorrentTableViewController: UITableViewController {
         AddTorrentTableViewController.url = url
         
     }
-
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

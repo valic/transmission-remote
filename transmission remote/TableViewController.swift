@@ -277,38 +277,10 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
     }
     
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    
-    // Override to support editing the table view.
-    /*
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     
-     
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     //  tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
     override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        
-        let torrent = sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row]
-        
-   //     print(statusCode[self.sectionsTorrent[(editActionsForRowAt as NSIndexPath).row].type])
-     //  print(self.sectionsTorrent[(editActionsForRowAt as NSIndexPath).row].items[0].id)
-        
-        print(torrent.id)
+
+
+     //   print(torrent.id)
 
         
         let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
@@ -318,20 +290,20 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             
-            //self.transmissionRequest.deleteTorrent(id: self.sectionsTorrent[(editActionsForRowAt as NSIndexPath).row].items[0].id)
+            self.transmissionRequest.deleteTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
             self.tableView.isEditing=false
             self.update()
         }
         delete.backgroundColor = .red
         
-        /*
+      
         var startStopTorrent: UITableViewRowAction
         
-        switch getTorrent[(editActionsForRowAt as NSIndexPath).row].status {
+        switch sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].status {
         case 0:
             startStopTorrent = UITableViewRowAction(style: .normal, title: "Start") { action, index in
                 
-                self.transmissionRequest.startTorrent(id: self.getTorrent[(editActionsForRowAt as NSIndexPath).row].id)
+                self.transmissionRequest.startTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
                 self.tableView.isEditing=false
                 self.update()
             }
@@ -340,15 +312,15 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         default:
             startStopTorrent = UITableViewRowAction(style: .normal, title: "Stop") { action, index in
                 
-                self.transmissionRequest.stopTorrent(id: self.getTorrent[(editActionsForRowAt as NSIndexPath).row].id)
+                self.transmissionRequest.stopTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
                 self.tableView.isEditing=false
                 self.update()
             }
             startStopTorrent.backgroundColor = UIColor.orange
         }
         
-        */
-        return [ delete, more]
+        
+        return [startStopTorrent, delete, more]
     }
     
     
