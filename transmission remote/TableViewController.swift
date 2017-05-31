@@ -373,28 +373,15 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             }
         }
     }
- 
     
-     static func importData(from url: URL) {
 
-
-        let data = try! Data(contentsOf: url)
-        print(data.base64EncodedString())
-        
-        
-        TransmissionRequest().torrentAdd(data: data, completion: { (check : Bool) in
-            
-            if check {
-           //     self.update()
-            }
-        })
-
-        do {
-            try FileManager.default.removeItem(at: url)
-        } catch {
-            print("Failed to remove item from Inbox")
-        }
+ 
+    @IBAction func cancelAddTorrent(segue:UIStoryboardSegue) {
     }
+    
+    @IBAction func doneAddTorrent(segue:UIStoryboardSegue) {
+    }
+
     
     
 }

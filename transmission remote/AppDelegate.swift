@@ -13,8 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -48,24 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Handle File Sharing
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        // 1
+        
         guard url.pathExtension == "torrent" else { return false }
         
-        // 2
-        TableViewController.importData(from: url)
-        /*
-        // 3
-        guard let navigationController = window?.rootViewController as? UINavigationController,
-            let TableViewController = navigationController.viewControllers.first as? TableViewController else {
-                return true
-        }
-        */
-        // 4
-     //   TableViewController.tableView.reloadData()
+        AddTorrentTableViewController.importData(from: url)
+
+        self.window?
+            .rootViewController!
+            .performSegue(withIdentifier: "segueAddTorrent", sender: nil)
+
         return true
     }
-    
-    
+
 
     // MARK: - Core Data stack
 

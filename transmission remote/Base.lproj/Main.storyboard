@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ict-gG-sKc" id="8mE-ii-lWb">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJK-wj-Lx5">
@@ -83,7 +83,11 @@
                     <navigationItem key="navigationItem" title="Torrents" id="6vg-jK-WFV">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icon_menu" id="HZk-cu-a2Z"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="7al-Xo-ze1"/>
+                            <barButtonItem systemItem="add" id="7al-Xo-ze1">
+                                <connections>
+                                    <segue destination="XtI-GA-C6A" kind="presentation" id="tpu-ZK-OCq"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="search" id="rYt-iM-9vr"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -98,7 +102,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JyP-Is-N9s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="293" y="1860"/>
+            <point key="canvasLocation" x="293" y="1859"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="Cqb-bY-bVO">
@@ -116,6 +120,7 @@
                     <connections>
                         <segue destination="Utq-kj-cdo" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="HvG-Gm-X6c"/>
                         <segue destination="8kL-9O-aFs" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="034-Mm-2Wi"/>
+                        <segue destination="XtI-GA-C6A" kind="presentation" identifier="segueAddTorrent" id="OYJ-8h-in1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wcz-79-bea" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -156,7 +161,7 @@
                                         <rect key="frame" x="0.0" y="120" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pyK-tU-7r3" id="9KN-KF-iqt">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Open Folder" translatesAutoresizingMaskIntoConstraints="NO" id="Dyf-Rx-RYw">
@@ -190,7 +195,7 @@
                                         <rect key="frame" x="0.0" y="180" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUp-lf-bH0" id="BkO-99-LPS">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Low Priority" translatesAutoresizingMaskIntoConstraints="NO" id="dVK-w9-S0n">
@@ -248,7 +253,7 @@
                                         <rect key="frame" x="0.0" y="35" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xYi-MY-1QD" id="Pfw-Jv-wRP">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6w-Nz-O7p">
@@ -284,7 +289,7 @@
                                         <rect key="frame" x="0.0" y="115" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fUJ-y7-wEX" id="6IN-cF-ZHd">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remote host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEl-3o-JHW">
@@ -316,7 +321,7 @@
                                         <rect key="frame" x="0.0" y="159" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="etT-a6-Qf1" id="kkL-Oh-gAE">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyI-bP-9ub">
@@ -348,7 +353,7 @@
                                         <rect key="frame" x="0.0" y="203" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1eG-nX-bju" id="JJu-SC-wKh">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use SSL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kfn-0b-nRz">
@@ -378,11 +383,11 @@
                                         <rect key="frame" x="0.0" y="283" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pkf-aZ-tix" id="H8y-2P-Mjk">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authentication required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g74-Nv-OV9">
-                                                    <rect key="frame" x="8" y="11" width="179.5" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="180" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -438,7 +443,7 @@
                                         <rect key="frame" x="0.0" y="371" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ofj-PB-g2S" id="ara-Dc-Fgk">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29t-u2-HGV">
@@ -474,7 +479,7 @@
                                         <rect key="frame" x="0.0" y="451" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cgi-nM-5px" id="7uz-jZ-9WE">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RPC path" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crA-0M-ZdW">
@@ -528,11 +533,138 @@
             </objects>
             <point key="canvasLocation" x="293" y="2547"/>
         </scene>
+        <!--Add torrent-->
+        <scene sceneID="WkM-3b-EOk">
+            <objects>
+                <tableViewController storyboardIdentifier="AddTorrent" useStoryboardIdentifierAsRestorationIdentifier="YES" id="x9z-Jc-Ctf" customClass="AddTorrentTableViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gj1-Ni-00B">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Source" id="7jp-qs-K2H">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dDs-MS-J2H">
+                                        <rect key="frame" x="0.0" y="56" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dDs-MS-J2H" id="L8I-DV-Ul3">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torrent name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-dx-9V1">
+                                                    <rect key="frame" x="8" y="11" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2VI-dx-9V1" firstAttribute="leading" secondItem="L8I-DV-Ul3" secondAttribute="leadingMargin" id="8tB-Vu-80g"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2VI-dx-9V1" secondAttribute="trailing" id="O3p-bt-Gp5"/>
+                                                <constraint firstItem="2VI-dx-9V1" firstAttribute="centerY" secondItem="L8I-DV-Ul3" secondAttribute="centerY" id="hkU-DU-wP8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Priority" id="jTM-IZ-jId">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0Z6-T7-F5V">
+                                        <rect key="frame" x="0.0" y="157" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Z6-T7-F5V" id="2QC-uR-6GZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="sGh-v5-yuX">
+                                                    <rect key="frame" x="20" y="8" width="280" height="29"/>
+                                                    <segments>
+                                                        <segment title="Low"/>
+                                                        <segment title="Normal"/>
+                                                        <segment title="High"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="sGh-v5-yuX" firstAttribute="centerY" secondItem="2QC-uR-6GZ" secondAttribute="centerY" id="760-Y9-sYc"/>
+                                                <constraint firstItem="sGh-v5-yuX" firstAttribute="centerX" secondItem="2QC-uR-6GZ" secondAttribute="centerX" id="KmQ-lW-yLX"/>
+                                                <constraint firstItem="sGh-v5-yuX" firstAttribute="leading" secondItem="2QC-uR-6GZ" secondAttribute="leading" constant="20" id="TsH-L3-G1f"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Torrent settings" id="R9u-ev-7kX">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="FyQ-tX-4cI">
+                                        <rect key="frame" x="0.0" y="258" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FyQ-tX-4cI" id="Wui-aH-E0g">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-by-G1g">
+                                                    <rect key="frame" x="263" y="6" width="49" height="31"/>
+                                                    <subviews>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5P2-U6-cmM">
+                                                            <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start torrent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4w-Bl-xpb">
+                                                    <rect key="frame" x="8" y="11" width="247" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iC0-by-G1g" firstAttribute="centerY" secondItem="Wui-aH-E0g" secondAttribute="centerY" id="5MT-9T-PrB"/>
+                                                <constraint firstItem="iC0-by-G1g" firstAttribute="leading" secondItem="o4w-Bl-xpb" secondAttribute="trailing" constant="8" id="THU-P9-CoD"/>
+                                                <constraint firstItem="o4w-Bl-xpb" firstAttribute="centerY" secondItem="Wui-aH-E0g" secondAttribute="centerY" id="cL2-Bo-13f"/>
+                                                <constraint firstAttribute="trailing" secondItem="iC0-by-G1g" secondAttribute="trailing" constant="8" id="kcl-wJ-VqJ"/>
+                                                <constraint firstItem="o4w-Bl-xpb" firstAttribute="leading" secondItem="Wui-aH-E0g" secondAttribute="leadingMargin" id="mkm-Ph-xbE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="x9z-Jc-Ctf" id="Xmn-c1-CVm"/>
+                            <outlet property="delegate" destination="x9z-Jc-Ctf" id="Xi0-bb-LbD"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Add torrent" id="SFq-zN-xfU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PFM-nV-2LZ">
+                            <connections>
+                                <segue destination="uKZ-Rk-C30" kind="unwind" identifier="cancelAddTorrent" unwindAction="cancelAddTorrentWithSegue:" id="xZZ-RJ-4n7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="2wK-km-YFu">
+                            <connections>
+                                <segue destination="uKZ-Rk-C30" kind="unwind" identifier="doneAddTorrent" unwindAction="doneAddTorrentWithSegue:" id="Od7-hk-AJ4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="torrentName" destination="2VI-dx-9V1" id="2Uw-Al-kfa"/>
+                        <outlet property="torrentSegmentControl" destination="sGh-v5-yuX" id="GJN-qG-Te4"/>
+                        <outlet property="torrentStartSwitch" destination="5P2-U6-cmM" id="eZe-aa-cDo"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Ci-x8-UUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="uKZ-Rk-C30" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2040" y="2582"/>
+        </scene>
         <!--Files-->
         <scene sceneID="TPw-zQ-MnJ">
             <objects>
                 <tableViewController id="b4f-jJ-CZW" customClass="TreeViewController" customModule="transmission_remote" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="1" sectionHeaderHeight="1" sectionFooterHeight="1" id="s1p-qg-BVi">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="1" sectionHeaderHeight="1" sectionFooterHeight="1" id="s1p-qg-BVi">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -564,6 +696,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BNd-Db-xVR">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="Lbo-8G-uwT" kind="relationship" relationship="rootViewController" id="fsO-yQ-vjt"/>
                     </connections>
@@ -582,6 +718,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BMm-fy-BPC">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="0m3-M9-8y2" kind="relationship" relationship="rootViewController" id="qKW-XL-Tq5"/>
                     </connections>
@@ -589,6 +729,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xfs-Px-xdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-525" y="2547"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tMr-h7-TH3">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="812-yp-OKx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XtI-GA-C6A" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IeE-CY-D50">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="x9z-Jc-Ctf" kind="relationship" relationship="rootViewController" id="Kcb-aB-Ai9"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1252.5" y="2581.6901408450703"/>
         </scene>
     </scenes>
     <resources>
@@ -598,6 +756,7 @@
         <image name="icon_menu" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cV0-l4-5d1"/>
+        <segue reference="034-Mm-2Wi"/>
+        <segue reference="tpu-ZK-OCq"/>
     </inferredMetricsTieBreakers>
 </document>

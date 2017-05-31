@@ -40,8 +40,7 @@ class TreeTableViewCell : UITableViewCell {
         switch checkBoxStatus {
         case 2:
             checkButton.setImage(UIImage(named: "Checked Checkbox"), for: UIControlState.normal)
-        case 1:
-            
+        case 1:  
             checkButton.setImage(UIImage(named: "Indeterminate Checkbox"), for: UIControlState.normal)
         case 0:
             checkButton.setImage(UIImage(named: "Unchecked Checkbox"), for: UIControlState.normal)

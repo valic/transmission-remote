@@ -120,10 +120,12 @@ class TransmissionRequest{
     var resultData:Data?
     var resultResponse:URLResponse?
     
+    
     func requestAlamofire(json: [String: Any], completionHandler: @escaping (AnyObject?, NSError?) -> ()) {
         let userDefults = UserDefaults.standard
         var userName = ""
         var password = ""
+        var remoteHost = ""
         
         // userName
         if let userName_userDefults = userDefults.value(forKey: "userName") as? String {
@@ -133,6 +135,10 @@ class TransmissionRequest{
         if let password_userDefults = userDefults.value(forKey: "password") as? String {
             password = password_userDefults
         }
+        // remoteHost
+        if let remoteHost_userDefults = userDefults.value(forKey: "remoteHost") as? String {
+            remoteHost = remoteHost_userDefults
+        }
         
         let loginString = String(format: "%@:%@", userName, password)
         let loginData = loginString.data(using: String.Encoding.utf8)!
@@ -140,7 +146,7 @@ class TransmissionRequest{
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let url = URL(string: "http://192.168.64.57:9091/transmission/rpc/")!
+        let url = URL(string: "http://\(remoteHost):9091/transmission/rpc/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -335,16 +341,22 @@ class TransmissionRequest{
             completion(torrentFilesAllArray)
         }
     }
-    func torrentAdd(data: Data, completion: @escaping  (Bool) -> ()) {
+    func torrentAdd(data: Data, paused: Bool, completion: @escaping  (Bool) -> ()) {
         let jsonString: [String: Any] = [
-            "arguments": [ "metainfo" : data.base64EncodedString()],
+            "arguments": ["metainfo" : data.base64EncodedString(),
+                          "paused" : paused],
             "method": "torrent-add"
         ]
         requestAlamofire(json: jsonString) { responseObject, error in
             
-            let json = JSON(responseObject!)
-            
-            completion((json["result"].stringValue == "success"))
+            if let responseObject = responseObject {
+                let json = JSON(responseObject)
+                
+                completion((json["result"].stringValue == "success"))
+            }
+            else{
+                completion(false)
+            }
         }
     }
     func stopTorrent(id: Int){
