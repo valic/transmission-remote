@@ -15,6 +15,7 @@ class AddTorrentTableViewController: UITableViewController {
     
     static var url:URL?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

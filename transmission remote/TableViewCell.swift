@@ -8,22 +8,36 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var torrentName: UILabel!
-    @IBOutlet weak var status: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var torrentProgress: UILabel!
-    
+class TableViewCell: FoldingCell {
+
+
+
+
+    @IBOutlet var torrentNameLabelCollection: [UILabel]!
+    @IBOutlet var torrentProgressViewCollection: [UIProgressView]!
+
+    @IBOutlet var torrentStatusLabel: UILabel!
+    @IBOutlet var torrentEtaLabel: UILabel!
+    @IBOutlet var torrentRateLabel: UILabel!
+
+    @IBOutlet var torrentProgress: [UILabel]!
+
+    @IBOutlet var statusView: [UIView]!
+    @IBOutlet var statusViewLabel: UILabel!
+
+
     override func awakeFromNib() {
+        foregroundView.layer.cornerRadius = 7
+        foregroundView.layer.masksToBounds = true
         super.awakeFromNib()
-        // Initialization code
     }
+    
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    override func animationDuration(_ itemIndex: NSInteger, type: FoldingCell.AnimationType) -> TimeInterval {
+        let durations = [0.26, 0.2, 0.2]
+        return durations[itemIndex]
     }
-
+    
 }

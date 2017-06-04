@@ -24,6 +24,7 @@
 		FB4348301EA78565008FA2E6 /* transmission_remoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43482F1EA78565008FA2E6 /* transmission_remoteUITests.swift */; };
 		FB4348431EA79F4E008FA2E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348421EA79F4E008FA2E6 /* TableViewController.swift */; };
 		FB4348451EA7A4CA008FA2E6 /* TransmissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */; };
+		FB5135311EE0BC35007D3801 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5135301EE0BC35007D3801 /* FoldingCell.swift */; };
 		FB52DEEE1EAE29FD00905C67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB52DEED1EAE29FD00905C67 /* Alamofire.framework */; };
 		FB70D9991ECCE15E00BD808B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB70D9981ECCE15E00BD808B /* SWRevealViewController.m */; };
 		FB714BFF1ED2216D00042673 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB714BFE1ED2216D00042673 /* MenuTableViewController.swift */; };
@@ -78,6 +79,7 @@
 		FB43483D1EA79123008FA2E6 /* transmission remote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "transmission remote.entitlements"; sourceTree = "<group>"; };
 		FB4348421EA79F4E008FA2E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		FB4348441EA7A4CA008FA2E6 /* TransmissionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRequest.swift; sourceTree = "<group>"; };
+		FB5135301EE0BC35007D3801 /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
 		FB52DEED1EAE29FD00905C67 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/transmission_remote-gckwlstmmksxwohamblyuiiakbzn/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		FB70D9961ECCE15E00BD808B /* transmission remote-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "transmission remote-Bridging-Header.h"; sourceTree = "<group>"; };
 		FB70D9971ECCE15E00BD808B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		FB70D9951ECCE12800BD808B /* framework */ = {
 			isa = PBXGroup;
 			children = (
+				FB5135301EE0BC35007D3801 /* FoldingCell.swift */,
 				FB70D9961ECCE15E00BD808B /* transmission remote-Bridging-Header.h */,
 				FBBDE7081ED74E5100119433 /* UIScrollView+EmptyDataSet.h */,
 				FBBDE7091ED74E5100119433 /* UIScrollView+EmptyDataSet.m */,
@@ -436,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB43480D1EA78565008FA2E6 /* AppDelegate.swift in Sources */,
+				FB5135311EE0BC35007D3801 /* FoldingCell.swift in Sources */,
 				FB4348151EA78565008FA2E6 /* transmission_remote.xcdatamodeld in Sources */,
 				FB714BFF1ED2216D00042673 /* MenuTableViewController.swift in Sources */,
 				FB3E26E31EB0163900ACA6E2 /* TreeViewController.swift in Sources */,

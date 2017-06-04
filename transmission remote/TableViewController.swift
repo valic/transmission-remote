@@ -18,15 +18,26 @@ struct Section {
     }
 }
 
+
+
 class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     
     @IBOutlet weak var menuBarButton: UIBarButtonItem!
     
     let transmissionRequest = TransmissionRequest()
-    var sectionsTorrent : [Section] = []
+    
+    
+    var getTorrent : [torrent] = []
+    
     var timer:Timer?
     var errorRequest: NSError?
     
+    let kCloseCellHeight: CGFloat = 114
+    let kOpenCellHeight: CGFloat = 214
+    var cellHeights: [CGFloat] = []
+    var openCellSet = Set<Int>()
+    
+
 
     
     var ids : Int = 0
@@ -36,10 +47,12 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // запускаем автоообновление
         update()
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(TableViewController.update), userInfo: nil, repeats: true)
         
+
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Идет обновление...")
         self.refreshControl?.addTarget(self, action: #selector(TableViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
@@ -62,6 +75,13 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         tableView.tableFooterView = UIView()
         
         
+    }
+    
+    private func setup() {
+        cellHeights = Array(repeating: kCloseCellHeight, count: getTorrent.count)
+        tableView.estimatedRowHeight = kCloseCellHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
     }
     
     //MARK: DZNEmptyDataSet
@@ -124,26 +144,114 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int  {
-        return sectionsTorrent.count
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionsTorrent[section].items.count
+        return getTorrent.count
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return statusCode[sectionsTorrent[section].type]
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard case let cell as TableViewCell = cell else {
+            return
+        }
+        
+        cell.backgroundColor = .clear
+        
+        if cellHeights[indexPath.row] == kCloseCellHeight {
+            cell.selectedAnimation(false, animated: false, completion:nil)
+        } else {
+            cell.selectedAnimation(true, animated: false, completion: nil)
+        }
         
     }
-//  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        let durations: [TimeInterval] = [0.26, 0.2, 0.2]
+        cell.durationsForExpandedState = durations
+        cell.durationsForCollapsedState = durations
+        
+        
+        
         
         //  getTorrent = getTorrent.sorted(by: { $0.id < $1.id })
    
-        let torrent = sectionsTorrent[indexPath.section].items[indexPath.row]
+        let torrent = getTorrent[indexPath.row]
         
+        if openCellSet.contains(torrent.id) {
+            
+            cellHeights[indexPath.row] = kOpenCellHeight
+        }
+        
+        for torrentNameLabel in cell.torrentNameLabelCollection{
+            torrentNameLabel.text = torrent.name
+        }
+
+        for torrentProgressView in cell.torrentProgressViewCollection {
+            torrentProgressView.setProgress(torrent.percentDone, animated: false)
+        }
+        
+        cell.torrentStatusLabel!.text = statusCode[torrent.status]
+        cell.statusViewLabel!.text = statusCode[torrent.status]
+
+        switch torrent.status {
+            
+        //Stopen
+        case 0:
+            
+            for statusView in cell.statusView {
+                statusView.backgroundColor = UIColor(red:0.97, green:0.65, blue:0.01, alpha:1.0)
+            }
+            cell.torrentRateLabel!.text = ""
+            
+        //Download
+        case 4:
+
+            cell.torrentEtaLabel!.text = secondToString(second: torrent.eta)
+            cell.torrentRateLabel!.text = "↓ \(formatBytesInSecond(byte: torrent.rateDownload))"
+            
+            for statusView in cell.statusView {
+                statusView.backgroundColor = UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0)
+            }
+            
+            for torrentProgress in cell.torrentProgress {
+                torrentProgress.text = "\(formatBytes(byte: torrent.downloadedEver)) of \(formatBytes(byte: torrent.sizeWhenDone)) (\(torrent.percentDone * 100)%)"
+            }
+        
+        // Seed
+        case 6:
+            cell.torrentEtaLabel!.text = ""
+            
+            if torrent.rateUpload != 0 {
+                cell.torrentRateLabel!.text = "↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
+            }
+            else{
+                cell.torrentRateLabel!.text = ""
+            }
+
+            for statusView in cell.statusView {
+                statusView.backgroundColor = UIColor(red:0.33, green:0.64, blue:0.18, alpha:1.0)
+            }
+            
+            for torrentProgress in cell.torrentProgress {
+                torrentProgress.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
+                
+                if torrent.totalSize == torrent.sizeWhenDone {
+                    torrentProgress.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
+                }
+                else{
+                    torrentProgress.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
+                }
+            }
+            
+            
+            
+        default:
+            break
+        }
+        
+        
+        /*
         cell.torrentName!.text = torrent.name
         cell.status!.text = statusCode[torrent.status]
         
@@ -206,11 +314,68 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             break
         }
         
-        
+        */
         
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeights[indexPath.row]
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
+        
+        if cell.isAnimating() {
+            return
+        }
+        
+        var duration = 0.0
+        let cellIsCollapsed = cellHeights[indexPath.row] == kCloseCellHeight
+        if cellIsCollapsed {
+            cellHeights[indexPath.row] = kOpenCellHeight
+            print("open")
+            
+            self.openCellSet.insert(getTorrent[indexPath.row].id)
+
+            
+            cell.selectedAnimation(true, animated: true, completion: nil)
+            duration = 0.5
+        } else {
+            
+            cellHeights[indexPath.row] = kCloseCellHeight
+            cell.selectedAnimation(false, animated: true, completion: nil)
+            duration = 0.8
+            
+            self.openCellSet.remove(getTorrent[indexPath.row].id)
+            
+            print("close")
+        }
+        
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }, completion: nil)
+        
+    }
+    
+/*
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if case let cell as FoldingCell = cell {
+            if cellHeights[indexPath.row] == C.CellHeight.close {
+                cell.selectedAnimation(false, animated: false, completion:nil)
+                
+            } else {
+                cell.selectedAnimation(true, animated: false, completion: nil)
+               
+            }
+        }
+    }
+
+    
+    */
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         update()
@@ -222,10 +387,10 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
         if !self.tableView.isEditing {
             
-            var sections : [Section] = []
+       //     var sections : [Section] = []
             
             transmissionRequest.torrentGet(completion: { (torrent : [torrent]?, error: NSError?) in
-                
+                /*
                 if let torrent = torrent {
                     for item in torrent{
                         
@@ -238,7 +403,13 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
                     }
                 }
                 self.sectionsTorrent = sections
+ */
+                if let torrent = torrent {
+                self.getTorrent = torrent
+                    self.setup()
+                }
                 self.errorRequest = error
+                
                 
                 //update your table data here
                 DispatchQueue.main.async() {
@@ -264,16 +435,20 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     }
     
     func formatBytesInSecond(byte: Int) -> String {
-        return formatBytes(byte: byte)
+        return formatBytes(byte: byte) + "/s"
     }
     
     func secondToString(second: Int) -> String {
+        
+        if second < 0 {
+            return "∞"
+        }
+        
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .full
         formatter.maximumUnitCount = 1
-        
-        let timeInterval = TimeInterval(second)
-        return formatter.string(from: timeInterval)!
+
+        return formatter.string(from: TimeInterval(second))!
         
     }
     
@@ -290,13 +465,13 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             
-            self.transmissionRequest.deleteTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
+           // self.transmissionRequest.deleteTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
             self.tableView.isEditing=false
             self.update()
         }
         delete.backgroundColor = .red
         
-      
+      /*
         var startStopTorrent: UITableViewRowAction
         
         switch sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].status {
@@ -318,12 +493,12 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             }
             startStopTorrent.backgroundColor = UIColor.orange
         }
+        */
         
-        
-        return [startStopTorrent, delete, more]
+        return [delete, more]
     }
     
-    
+    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let torrent = sectionsTorrent[indexPath.section].items[indexPath.row]
@@ -333,7 +508,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
         self.performSegue(withIdentifier: "segueID", sender: nil)
     }
-    
+    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "segueID" {
