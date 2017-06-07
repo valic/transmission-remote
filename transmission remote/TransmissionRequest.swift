@@ -29,9 +29,12 @@ class torrent {
     var uploadRatio:Float
     var downloadedEver:Int
     var uploadedEver:Int
+    var queuePosition:Int
+    var trackerStats:[trackerStats]
+  
     
     
-    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int, error:Int, errorString:String,  uploadRatio:Float, downloadedEver:Int, uploadedEver:Int) {
+    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int, error:Int, errorString:String,  uploadRatio:Float, downloadedEver:Int, uploadedEver:Int, queuePosition:Int, trackerStats:[trackerStats]) {
         self.id = id
         self.name = name
         self.percentDone = percentDone
@@ -49,6 +52,9 @@ class torrent {
         self.uploadRatio = uploadRatio
         self.downloadedEver = downloadedEver
         self.uploadedEver = uploadedEver
+        self.queuePosition = queuePosition
+        self.trackerStats = trackerStats
+        
     }
 }
 
@@ -112,6 +118,15 @@ class torrentFilesAll {
         self.init(idTorrent:Int(), torrentFiles:torrentFiles(), torrentFileStats:torrentFileStats())
     }
     
+}
+struct trackerStats {
+    var seederCount:Int
+    var leecherCount:Int
+    
+    init(seederCount:Int, leecherCount:Int) {
+        self.seederCount = seederCount
+        self.leecherCount = leecherCount
+    }
 }
 
 class TransmissionRequest{
@@ -216,7 +231,8 @@ class TransmissionRequest{
                                         "errorString",
                                         "uploadRatio",
                                         "downloadedEver",
-                                        "uploadedEver"
+                                        "uploadedEver",
+                                        "queuePosition"
                 ]],
             "method": "torrent-get"
         ]
@@ -227,7 +243,17 @@ class TransmissionRequest{
                 let json = JSON(responseObject)
                 
                 if json["result"].stringValue == "success" {
+                    
+                    
+                    
                     for item in json["arguments"]["torrents"].arrayValue {
+                        
+                        var trackerStatsArray = [trackerStats]()
+                        
+                        for tracker in item["trackerStats"].arrayValue{
+                            trackerStatsArray.append(trackerStats(seederCount: tracker["seederCount"].intValue,
+                                                                  leecherCount: tracker["leecherCount"].intValue))
+                        }
                         
                         torrentArray.append(torrent(id: item["id"].intValue,
                                                     name: item["name"].stringValue,
@@ -245,7 +271,9 @@ class TransmissionRequest{
                                                     errorString: item["errorString"].stringValue,
                                                     uploadRatio: item["uploadRatio"].floatValue,
                                                     downloadedEver: item["downloadedEver"].intValue,
-                                                    uploadedEver: item["uploadedEver"].intValue))
+                                                    uploadedEver: item["uploadedEver"].intValue,
+                                                    queuePosition: item["queuePosition"].intValue,
+                                                    trackerStats: trackerStatsArray))
                     }
                 }
             }

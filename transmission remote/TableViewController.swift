@@ -32,8 +32,8 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     var timer:Timer?
     var errorRequest: NSError?
     
-    let kCloseCellHeight: CGFloat = 114
-    let kOpenCellHeight: CGFloat = 214
+    let kCloseCellHeight: CGFloat = 104
+    let kOpenCellHeight: CGFloat = 194
     var cellHeights: [CGFloat] = []
     var openCellSet = Set<Int>()
     
@@ -81,7 +81,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         cellHeights = Array(repeating: kCloseCellHeight, count: getTorrent.count)
         tableView.estimatedRowHeight = kCloseCellHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
+      //  tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
     }
     
     //MARK: DZNEmptyDataSet
@@ -157,9 +157,9 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         cell.backgroundColor = .clear
         
         if cellHeights[indexPath.row] == kCloseCellHeight {
-            cell.selectedAnimation(false, animated: false, completion:nil)
+            cell.unfold(false, animated: false, completion:nil)
         } else {
-            cell.selectedAnimation(true, animated: false, completion: nil)
+            cell.unfold(true, animated: false, completion: nil)
         }
         
     }
@@ -171,17 +171,16 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
         
-        
-        
-        
+
         //  getTorrent = getTorrent.sorted(by: { $0.id < $1.id })
    
         let torrent = getTorrent[indexPath.row]
         
         if openCellSet.contains(torrent.id) {
-            
-            cellHeights[indexPath.row] = kOpenCellHeight
+
+                cellHeights[indexPath.row] = kOpenCellHeight
         }
+        
         
         for torrentNameLabel in cell.torrentNameLabelCollection{
             torrentNameLabel.text = torrent.name
@@ -191,61 +190,109 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             torrentProgressView.setProgress(torrent.percentDone, animated: false)
         }
         
-        cell.torrentStatusLabel!.text = statusCode[torrent.status]
+        for percentDone in cell.percentDoneLabelCollection {
+            percentDone.text = "\(Int(torrent.percentDone * 100)) %"
+        }
+        
+
         cell.statusViewLabel!.text = statusCode[torrent.status]
+        
+        cell.downSpeedLabel!.text = formatBytesInSecond(byte: torrent.rateDownload)
+        cell.upSpeedLabel!.text = formatBytesInSecond(byte: torrent.rateUpload)
+        
+        
 
         switch torrent.status {
             
         //Stopen
         case 0:
             
-            for statusView in cell.statusView {
-                statusView.backgroundColor = UIColor(red:0.97, green:0.65, blue:0.01, alpha:1.0)
+            for torrentEtaLabel in cell.torrentEtaLabel {
+                torrentEtaLabel.text = secondToString(second: torrent.eta)
             }
             cell.torrentRateLabel!.text = ""
             
+            for statusView in cell.statusView {
+                statusView.backgroundColor = UIColor(red:0.97, green:0.65, blue:0.01, alpha:1.0)
+            }
+            
+            for torrentEtaLabel in cell.torrentEtaLabel {
+                torrentEtaLabel.text = ""
+            }
+        //CHECK
+       //hause
+        //case 2:
+            
+            
+            
         //Download
         case 4:
-
-            cell.torrentEtaLabel!.text = secondToString(second: torrent.eta)
-            cell.torrentRateLabel!.text = "↓ \(formatBytesInSecond(byte: torrent.rateDownload))"
+            
+            if torrent.rateDownload != 0 {
+                
+                cell.rateImageView.image = #imageLiteral(resourceName: "downloadBlue")
+                cell.torrentRateLabel!.text = formatBytesInSecond(byte: torrent.rateDownload)
+                cell.torrentRateLabel!.textColor = UIColor.black.withAlphaComponent(0.85)
+                view.isOpaque = false
+            }
+            else{
+                
+                cell.rateImageView.image = #imageLiteral(resourceName: "downloadGrey")
+                cell.torrentRateLabel!.text = formatBytesInSecond(byte: torrent.rateDownload)
+                cell.torrentRateLabel!.textColor = UIColor.black.withAlphaComponent(0.50)
+                view.isOpaque = false
+            }
             
             for statusView in cell.statusView {
                 statusView.backgroundColor = UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0)
             }
             
+            for torrentEtaLabel in cell.torrentEtaLabel {
+                torrentEtaLabel.text = secondToString(second: torrent.eta)
+            }
+            
             for torrentProgress in cell.torrentProgress {
-                torrentProgress.text = "\(formatBytes(byte: torrent.downloadedEver)) of \(formatBytes(byte: torrent.sizeWhenDone)) (\(torrent.percentDone * 100)%)"
+                torrentProgress.text = "\(formatBytes(byte: torrent.downloadedEver)) of \(formatBytes(byte: torrent.sizeWhenDone))"
             }
         
         // Seed
         case 6:
-            cell.torrentEtaLabel!.text = ""
+            
             
             if torrent.rateUpload != 0 {
-                cell.torrentRateLabel!.text = "↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
+ 
+                cell.rateImageView.image = #imageLiteral(resourceName: "uploadBlue")
+                cell.torrentRateLabel!.text = formatBytesInSecond(byte: torrent.rateUpload)
+                cell.torrentRateLabel!.textColor = UIColor.black.withAlphaComponent(0.85)
+                view.isOpaque = false
             }
             else{
-                cell.torrentRateLabel!.text = ""
+                
+                cell.rateImageView.image = #imageLiteral(resourceName: "uploadGrey")
+                cell.torrentRateLabel!.text = formatBytesInSecond(byte: torrent.rateUpload)
+                cell.torrentRateLabel!.textColor = UIColor.black.withAlphaComponent(0.50)
+                view.isOpaque = false
             }
-
+            
             for statusView in cell.statusView {
                 statusView.backgroundColor = UIColor(red:0.33, green:0.64, blue:0.18, alpha:1.0)
             }
             
-            for torrentProgress in cell.torrentProgress {
-                torrentProgress.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
-                
-                if torrent.totalSize == torrent.sizeWhenDone {
-                    torrentProgress.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
-                }
-                else{
-                    torrentProgress.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
-                }
+            for torrentEtaLabel in cell.torrentEtaLabel {
+                torrentEtaLabel.text = ""
             }
             
-            
-            
+            for torrentProgress in cell.torrentProgress {
+                torrentProgress.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize))"
+                
+                if torrent.totalSize == torrent.sizeWhenDone {
+                    // torrentProgress.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize))"
+                    torrentProgress.text = formatBytes(byte: torrent.totalSize)
+                }
+                else{
+                    torrentProgress.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize))"
+                }
+            }
         default:
             break
         }
@@ -340,12 +387,12 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
             self.openCellSet.insert(getTorrent[indexPath.row].id)
 
             
-            cell.selectedAnimation(true, animated: true, completion: nil)
+            cell.unfold(true, animated: true, completion: nil)
             duration = 0.5
         } else {
             
             cellHeights[indexPath.row] = kCloseCellHeight
-            cell.selectedAnimation(false, animated: true, completion: nil)
+            cell.unfold(false, animated: true, completion: nil)
             duration = 0.8
             
             self.openCellSet.remove(getTorrent[indexPath.row].id)
@@ -430,7 +477,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         formatter.countStyle = ByteCountFormatter.CountStyle.file
         formatter.allowsNonnumericFormatting = false
         
-        return (formatter.string(fromByteCount: Int64(byte)) )
+        return (formatter.string(fromByteCount: Int64(Int(byte))) )
         
     }
     
@@ -465,20 +512,20 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             
-           // self.transmissionRequest.deleteTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
+            self.transmissionRequest.deleteTorrent(id: self.getTorrent[editActionsForRowAt.row].id)
             self.tableView.isEditing=false
             self.update()
         }
         delete.backgroundColor = .red
         
-      /*
+      
         var startStopTorrent: UITableViewRowAction
         
-        switch sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].status {
+        switch self.getTorrent[editActionsForRowAt.row].status {
         case 0:
             startStopTorrent = UITableViewRowAction(style: .normal, title: "Start") { action, index in
                 
-                self.transmissionRequest.startTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
+                self.transmissionRequest.startTorrent(id: self.getTorrent[editActionsForRowAt.row].id)
                 self.tableView.isEditing=false
                 self.update()
             }
@@ -487,15 +534,15 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         default:
             startStopTorrent = UITableViewRowAction(style: .normal, title: "Stop") { action, index in
                 
-                self.transmissionRequest.stopTorrent(id: self.sectionsTorrent[editActionsForRowAt.section].items[editActionsForRowAt.row].id)
+                self.transmissionRequest.stopTorrent(id: self.getTorrent[editActionsForRowAt.row].id)
                 self.tableView.isEditing=false
                 self.update()
             }
             startStopTorrent.backgroundColor = UIColor.orange
         }
-        */
         
-        return [delete, more]
+        
+        return [startStopTorrent, delete, more]
     }
     
     /*

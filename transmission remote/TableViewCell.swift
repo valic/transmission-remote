@@ -12,20 +12,21 @@ import UIKit
 class TableViewCell: FoldingCell {
 
 
-
-
     @IBOutlet var torrentNameLabelCollection: [UILabel]!
     @IBOutlet var torrentProgressViewCollection: [UIProgressView]!
 
-    @IBOutlet var torrentStatusLabel: UILabel!
-    @IBOutlet var torrentEtaLabel: UILabel!
+    @IBOutlet var torrentEtaLabel: [UILabel]!
     @IBOutlet var torrentRateLabel: UILabel!
+    @IBOutlet var rateImageView: UIImageView!
 
     @IBOutlet var torrentProgress: [UILabel]!
+    @IBOutlet var percentDoneLabelCollection: [UILabel]!
 
     @IBOutlet var statusView: [UIView]!
     @IBOutlet var statusViewLabel: UILabel!
 
+    @IBOutlet var downSpeedLabel: UILabel!
+    @IBOutlet var upSpeedLabel: UILabel!
 
     override func awakeFromNib() {
         foregroundView.layer.cornerRadius = 7
