@@ -22,6 +22,7 @@ struct Section {
 
 class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     
+    
     @IBOutlet weak var menuBarButton: UIBarButtonItem!
     
     let transmissionRequest = TransmissionRequest()
@@ -33,7 +34,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     var errorRequest: NSError?
     
     let kCloseCellHeight: CGFloat = 104
-    let kOpenCellHeight: CGFloat = 194
+    let kOpenCellHeight: CGFloat = 284
     var cellHeights: [CGFloat] = []
     var openCellSet = Set<Int>()
     
@@ -42,7 +43,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
     
     var ids : Int = 0
     
-    let statusCode:[Int:String] = [0: "STOPPED", 1: "CHECK_WAIT", 2: "CHECK", 3: "DOWNLOAD_WAIT ", 4: "DOWNLOAD", 5: "SEED_WAIT", 6: "SEED", 7: "ISOLATED"]
+    let statusCode:[Int:String] = [0: "STOPPED", 1: "CHECK_WAIT", 2: "CHECK", 3: "DOWNLOAD_WAIT", 4: "DOWNLOAD", 5: "SEED_WAIT", 6: "SEED", 7: "ISOLATED"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -201,6 +202,13 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         cell.upSpeedLabel!.text = formatBytesInSecond(byte: torrent.rateUpload)
         
         
+        if torrent.status == 3 && torrent.status == 4 {
+            cell.startStopButton.imageView?.image = #imageLiteral(resourceName: "Stop")
+        }
+        else{
+            cell.startStopButton.imageView?.image = #imageLiteral(resourceName: "Start")
+        }
+        
 
         switch torrent.status {
             
@@ -220,9 +228,28 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
                 torrentEtaLabel.text = ""
             }
         //CHECK
-       //hause
-        //case 2:
+        case 1,2:
             
+            for torrentProgressView in cell.torrentProgressViewCollection {
+                torrentProgressView.setProgress(Float(torrent.recheckProgress), animated: false)
+            }
+            
+            for percentDone in cell.percentDoneLabelCollection {
+                percentDone.text = "\(Int(torrent.recheckProgress * 100)) %"
+            }
+                        
+            for torrentProgress in cell.torrentProgress {
+                torrentProgress.text = "Verifying local data"
+            }
+            
+            for statusView in cell.statusView {
+                statusView.backgroundColor = UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0)
+            }
+            
+            for statusView in cell.statusView {
+                statusView.backgroundColor = UIColor.gray
+            }
+           
             
             
         //Download
@@ -298,70 +325,10 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         }
         
         
-        /*
-        cell.torrentName!.text = torrent.name
-        cell.status!.text = statusCode[torrent.status]
-        
-        cell.progressView.setProgress(torrent.percentDone, animated: false)
-        
-        cell.torrentProgress!.text = ""
-        
-        switch torrent.status {
-        case 0:
-            cell.progressView.progressTintColor = UIColor.gray
-            
-            if torrent.percentDone != 1.0 {
-                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.downloadedEver))) of \(formatBytes(byte: torrent.sizeWhenDone)) (\(torrent.percentDone * 100)%), uploaded \(formatBytes(byte: torrent.uploadedEver)) (ratio \(torrent.uploadRatio))"
-                cell.status!.textColor = UIColor.black
-            }
-            else{
-                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.totalSize)), uploaded \(formatBytes(byte: torrent.uploadedEver)) (ratio \(torrent.uploadRatio))"
-                cell.status!.textColor = UIColor.black
-            }
-            
-        case 4:
-            cell.status!.text = "Downloading from \(torrent.peersSendingToUs) of \(torrent.peersConnected) peers - ↓ \(formatBytesInSecond(byte: torrent.rateDownload)) ↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
-            cell.torrentProgress!.text = "\(formatBytes(byte: torrent.downloadedEver))) of \(formatBytes(byte: torrent.sizeWhenDone)) (\(torrent.percentDone * 100)%) - \(secondToString(second: torrent.eta))"
-            
-            cell.status!.textColor = UIColor.black
-            cell.progressView.progressTintColor = UIColor.green
-        case 5:
-            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.47, blue:0.99, alpha:1.0)
-        case 6:
-            cell.status!.text = "Seeding to \(torrent.peersGettingFromUs) of \(torrent.peersConnected) peers - ↑ \(formatBytesInSecond(byte: torrent.rateUpload))"
-            cell.status!.textColor = UIColor.black
-            
-            cell.progressView.progressTintColor = UIColor(red:0.00, green:0.47, blue:0.99, alpha:1.0)
-            
-            if torrent.totalSize == torrent.sizeWhenDone {
-                cell.torrentProgress!.text = "\(formatBytes(byte: Int(Float(torrent.totalSize) * torrent.percentDone))) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%), uploaded \(formatBytes(byte: torrent.uploadedEver)) (ratio \(torrent.uploadRatio))"
-                cell.status!.textColor = UIColor.black
-            }
-            else{
-                cell.torrentProgress!.text = "\(formatBytes(byte: torrent.sizeWhenDone)) of \(formatBytes(byte: torrent.totalSize)) (\(torrent.percentDone * 100)%)"
-                cell.status!.textColor = UIColor.black
-            }
-            
-            
-        default:
-            cell.progressView.progressTintColor = UIColor.red
+        cell.tapTrashButton = { [weak self] (cell) in
+            self?.deleteTorrent(torrent: (self?.getTorrent[tableView.indexPath(for: cell)!.row])!)
         }
 
-        switch torrent.error {
-        case 1:
-            cell.status!.text = "Tracker returned a warning: " + torrent.errorString
-            cell.status!.textColor = UIColor.red
-        case 2:
-            cell.status!.text = "Tracker returned an error: " + torrent.errorString
-            cell.status!.textColor = UIColor.red
-        case 3:
-            cell.status!.text = "Error: " + torrent.errorString
-            cell.status!.textColor = UIColor.red
-        default:
-            break
-        }
-        
-        */
         
         return cell
     }
@@ -407,22 +374,34 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         
     }
     
-/*
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if case let cell as FoldingCell = cell {
-            if cellHeights[indexPath.row] == C.CellHeight.close {
-                cell.selectedAnimation(false, animated: false, completion:nil)
-                
-            } else {
-                cell.selectedAnimation(true, animated: false, completion: nil)
-               
-            }
-        }
-    }
 
+    func deleteTorrent(torrent: torrent)  {
+        
+        if torrent.percentDone != 1 {
+            let alertController = UIAlertController(title: "Delete", message: "Torrent еще не загружен. Удалить?", preferredStyle: .actionSheet)
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
+                self.transmissionRequest.deleteTorrent(id: torrent.id)
+                self.tableView.isEditing=false
+                self.update()
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(deleteAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        else{
+            self.transmissionRequest.deleteTorrent(id: torrent.id)
+            self.tableView.isEditing=false
+            self.update()
+        }
+        
+        
+    }
     
-    */
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         update()
@@ -511,10 +490,7 @@ class TableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmpt
         more.backgroundColor = .lightGray
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            
-            self.transmissionRequest.deleteTorrent(id: self.getTorrent[editActionsForRowAt.row].id)
-            self.tableView.isEditing=false
-            self.update()
+            self.deleteTorrent(torrent: self.getTorrent[editActionsForRowAt.row])
         }
         delete.backgroundColor = .red
         

@@ -31,10 +31,11 @@ class torrent {
     var uploadedEver:Int
     var queuePosition:Int
     var trackerStats:[trackerStats]
+    var recheckProgress:Double
   
     
     
-    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int, error:Int, errorString:String,  uploadRatio:Float, downloadedEver:Int, uploadedEver:Int, queuePosition:Int, trackerStats:[trackerStats]) {
+    init(id:Int, name:String, percentDone:Float, eta:Int, rateDownload:Int, rateUpload:Int, status:Int, peersGettingFromUs:Int, peersSendingToUs:Int, peersConnected:Int, totalSize:Int, sizeWhenDone:Int, error:Int, errorString:String,  uploadRatio:Float, downloadedEver:Int, uploadedEver:Int, queuePosition:Int, trackerStats:[trackerStats], recheckProgress:Double) {
         self.id = id
         self.name = name
         self.percentDone = percentDone
@@ -54,6 +55,7 @@ class torrent {
         self.uploadedEver = uploadedEver
         self.queuePosition = queuePosition
         self.trackerStats = trackerStats
+        self.recheckProgress = recheckProgress
         
     }
 }
@@ -232,7 +234,8 @@ class TransmissionRequest{
                                         "uploadRatio",
                                         "downloadedEver",
                                         "uploadedEver",
-                                        "queuePosition"
+                                        "queuePosition",
+                                        "recheckProgress"
                 ]],
             "method": "torrent-get"
         ]
@@ -273,7 +276,8 @@ class TransmissionRequest{
                                                     downloadedEver: item["downloadedEver"].intValue,
                                                     uploadedEver: item["uploadedEver"].intValue,
                                                     queuePosition: item["queuePosition"].intValue,
-                                                    trackerStats: trackerStatsArray))
+                                                    trackerStats: trackerStatsArray,
+                                                    recheckProgress: item["recheckProgress"].doubleValue))
                     }
                 }
             }
